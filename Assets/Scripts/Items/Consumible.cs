@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Consumible", menuName = "ScriptableObjects/Items/Consumible")]
+[CreateAssetMenu(fileName = "Consumible", menuName = "Items/Consumible")]
 public class Consumible : Item
 {
     public override ItemType GetItemType() { return ItemType.Consumible; }

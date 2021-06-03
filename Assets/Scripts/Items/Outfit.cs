@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum OutfitSlotPosition { Helmet, Gloves, Boots, Pants, Armor };
-[CreateAssetMenu(fileName = "Outfit", menuName = "ScriptableObjects/Items/Outfit")]
+[CreateAssetMenu(fileName = "Outfit", menuName = "Items/Outfit")]
 public class Outfit : Item
 {
     [Header("Armor Specific")]
