@@ -4,14 +4,22 @@ using UnityEngine;
 
 
 [System.Serializable]
-struct Slot
+class Slot
 {
-    public int _id;
-    public int _amount;
+    public int id;
+    public int amount;
+    public bool used;
+    public Slot()
+    {
+        id = -1;
+        amount = 0;
+        used = false;
+    }
     public Slot(int id, int amount)
     {
-        _id = id;
-        _amount = amount;
+        this.id = id;
+        this.amount = amount;
+        used = true;
     }
 }
 
@@ -20,7 +28,6 @@ public class Inventory : MonoBehaviour
     [SerializeField] List<Slot> CurrentItems;
     [SerializeField] int size = 10;
 
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < size; i++)
@@ -32,9 +39,44 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    bool AddNewItem(int id, int amount, int slotPos)
     {
-        
+        if (!CurrentItems[slotPos].used)
+        {
+            CurrentItems[slotPos].amount = amount;
+            CurrentItems[slotPos].id = id;
+            CurrentItems[slotPos].used = true;
+            return true;
+        }
+        else
+        {
+            if(id == CurrentItems[slotPos].id && GameplayManager.GetInstance().GetItemFromID(id).maxStack >= CurrentItems[slotPos].amount + amount)
+            {
+                CurrentItems[slotPos].amount += amount;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
+
+    public void DeleteItem(int slotPos)
+    {
+        if (CurrentItems[slotPos].used)
+        {
+            CurrentItems[slotPos].amount = 0;
+            CurrentItems[slotPos].id = -1;
+            CurrentItems[slotPos].used = false;
+        }
+    }
+
+    public void SwapItem(int slotPosFrom, int slotPosTo)
+    {
+        Slot temp = new Slot(CurrentItems[slotPosFrom].id, CurrentItems[slotPosFrom].amount);
+        CurrentItems[slotPosFrom] = CurrentItems[slotPosTo];
+        CurrentItems[slotPosTo] = temp;
+    }
+
 }

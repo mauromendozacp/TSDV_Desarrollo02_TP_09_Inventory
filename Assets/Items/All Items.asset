@@ -10,5 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53f387ed7c9267b4d904da8dd9444bbf, type: 3}
-  m_Name: Item list 1
+  m_Name: All Items
   m_EditorClassIdentifier: 
+  itemList:
+  - {fileID: 11400000, guid: 2b2688254e4f62842b72a9b7bcbd332f, type: 2}
+  - {fileID: 11400000, guid: 5dda0b1c19592704fb54ef7bb4c5e549, type: 2}
+  - {fileID: 11400000, guid: f09572a7dc4f1534daf719262d570393, type: 2}
+  - {fileID: 11400000, guid: f329c67060f96954dbc1b01093b9d7ab, type: 2}

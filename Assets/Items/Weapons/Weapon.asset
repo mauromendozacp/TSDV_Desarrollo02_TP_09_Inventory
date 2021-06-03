@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 108e58c2f4ea4ec4baef2c10777a486a, type: 3}
   m_Name: Weapon
   m_EditorClassIdentifier: 
-  name: 
+  itemName: 
   icon: {fileID: 0}
   worldPrefab: {fileID: 0}
+  maxStack: 1
   level: 0
   weight: 0
   price: 0
