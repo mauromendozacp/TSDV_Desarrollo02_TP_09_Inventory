@@ -4,29 +4,52 @@ using UnityEngine;
 
 
 [System.Serializable]
-class Slot
+public class Slot
 {
-    public int id;
-    public int amount;
-    public bool used;
+    public int ID { get; set; }
+    public int amount { get; set; }
+    public bool used { get; set; }
     public Slot()
     {
-        id = -1;
+        ID = -1;
         amount = 0;
         used = false;
     }
-    public Slot(int id, int amount)
+    public Slot(int ID, int amount)
     {
-        this.id = id;
+        this.ID = ID;
         this.amount = amount;
         used = true;
     }
+    public void AddAmount(int amount)
+    {
+        this.amount += amount;
+    }
+    public void FillSlot(int ID, int amount)
+    {
+        this.ID = ID;
+        this.amount = amount;
+        used = true;
+    }
+    public void EmptySlot()
+    {
+        ID = -1;
+        amount = 0;
+        used = false;
+    }
+    public bool IsEmpty() { return used; }
 }
 
 public class Inventory : MonoBehaviour
 {
     [SerializeField] List<Slot> CurrentItems;
     [SerializeField] int size = 10;
+    Equipment equipmentComponent;
+
+    private void Awake()
+    {
+        equipmentComponent = GetComponent<Equipment>();
+    }
 
     void Start()
     {
@@ -39,20 +62,18 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    bool AddNewItem(int id, int amount, int slotPos)
+    public bool AddNewItem(int ID, int amount, int slotPos)
     {
-        if (!CurrentItems[slotPos].used)
+        if (!CurrentItems[slotPos].IsEmpty())
         {
-            CurrentItems[slotPos].amount = amount;
-            CurrentItems[slotPos].id = id;
-            CurrentItems[slotPos].used = true;
+            CurrentItems[slotPos].FillSlot(ID, amount);
             return true;
         }
         else
         {
-            if(id == CurrentItems[slotPos].id && GameplayManager.GetInstance().GetItemFromID(id).maxStack >= CurrentItems[slotPos].amount + amount)
+            if(ID == CurrentItems[slotPos].ID && GameplayManager.GetInstance().GetItemFromID(ID).maxStack >= CurrentItems[slotPos].amount + amount)
             {
-                CurrentItems[slotPos].amount += amount;
+                CurrentItems[slotPos].AddAmount(amount);
                 return true;
             }
             else
@@ -61,22 +82,44 @@ public class Inventory : MonoBehaviour
             }
         }
     }
+    public bool AddNewItem(int ID, int amount)
+    {
+        for (int i = 0; i < size; i++)
+        {
+            if (!CurrentItems[i].used)
+            {
+                CurrentItems[i].FillSlot(ID, amount);
+                return true;
+            }
+        }
+        return false;
+    }
 
     public void DeleteItem(int slotPos)
     {
         if (CurrentItems[slotPos].used)
         {
-            CurrentItems[slotPos].amount = 0;
-            CurrentItems[slotPos].id = -1;
-            CurrentItems[slotPos].used = false;
+            CurrentItems[slotPos].EmptySlot();
         }
     }
 
     public void SwapItem(int slotPosFrom, int slotPosTo)
     {
-        Slot temp = new Slot(CurrentItems[slotPosFrom].id, CurrentItems[slotPosFrom].amount);
+        Slot temp = new Slot(CurrentItems[slotPosFrom].ID, CurrentItems[slotPosFrom].amount);
         CurrentItems[slotPosFrom] = CurrentItems[slotPosTo];
         CurrentItems[slotPosTo] = temp;
+    }
+
+    public void UseItem(int slotPos)
+    {
+        if(GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
+        {
+
+        }
+        else
+        {
+            CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
+        }
     }
 
 }
