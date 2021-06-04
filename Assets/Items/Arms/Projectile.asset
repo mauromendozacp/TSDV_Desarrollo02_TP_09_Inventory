@@ -19,4 +19,4 @@ MonoBehaviour:
   level: 0
   weight: 0
   price: 0
-  weaponToUse: 0
+  weaponToUse: 1

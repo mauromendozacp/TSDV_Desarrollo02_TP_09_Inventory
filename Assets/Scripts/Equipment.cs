@@ -6,8 +6,8 @@ public class Equipment : MonoBehaviour
 {
     enum SlotsOutfit { Helmet, Gloves, Boots, Pants, Armor, Size }
     [SerializeField] int weaponSlotsAmount = 4;
-    List<Slot> OutfitList;
-    List<Slot> ArmsList;
+    [SerializeField] List<Slot> currentOutfit;
+    [SerializeField] List<Slot> currentArms;
     Inventory inventory;
 
     private void Start()
@@ -16,18 +16,18 @@ public class Equipment : MonoBehaviour
         for (int i = 0; i < (int)SlotsOutfit.Size; i++)
         {
             Slot newSlot = new Slot();
-            OutfitList.Add(newSlot);
+            currentOutfit.Add(newSlot);
         }
         for (int i = 0; i < weaponSlotsAmount; i++)
         {
             Slot newSlot = new Slot();
-            ArmsList.Add(newSlot);
+            currentArms.Add(newSlot);
         }
     }
 
-    public Slot SwapEquipment(Slot slotToChange)
+    public Slot SwapEquipment(Slot newItemSlot)
     {
-        Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(slotToChange.ID);
+        Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
         if (itemToSwap.GetItemType() == ItemType.Outfit)
         {
             int index = 0;
@@ -49,19 +49,41 @@ public class Equipment : MonoBehaviour
                     index = (int)SlotsOutfit.Armor;
                     break;
             }
-            Slot temp = OutfitList[index];
-            OutfitList[index] = slotToChange;
-            return temp; 
+            Slot temp = currentOutfit[index];
+            currentOutfit[index] = newItemSlot;
+            return temp;
         }
         else // if(itemToSwap.GetItemType() == ItemType.weapon)
         {
-            Slot returnSlot = ArmsList[0];
-            ArmsList[0] = slotToChange;
-            Slot temp = ArmsList[ArmsList.Count - 1];
-            ArmsList[ArmsList.Count -1] = ArmsList[0];
-            ArmsList[0] = temp;
+            Slot returnSlot = currentArms[0];
+            currentArms[0] = newItemSlot;
+            Slot temp = currentArms[currentArms.Count - 1];
+            currentArms[currentArms.Count - 1] = currentArms[0];
+            currentArms[0] = temp;
             return returnSlot;
         }
     }
 
+    public Slot SwapEquipment(Slot newItemSlot, int slotPos)
+    {
+        Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
+        if (itemToSwap.GetItemType() == ItemType.Outfit)
+        {
+            Item itemInSlot = GameplayManager.GetInstance().GetItemFromID(currentOutfit[slotPos].ID);
+            if (((Outfit)itemToSwap).type == ((Outfit)itemInSlot).type)
+            {
+                Slot temp = currentArms[slotPos];
+                currentOutfit[slotPos] = newItemSlot;
+                return temp;
+            }
+        }
+        else if (itemToSwap.GetItemType() == ItemType.Arms)
+        {
+            Item itemInSlot = GameplayManager.GetInstance().GetItemFromID(currentArms[slotPos].ID);
+            Slot temp = currentArms[slotPos];
+            currentArms[slotPos] = newItemSlot;
+            return temp;
+        }
+        return newItemSlot;
+    }
 }
