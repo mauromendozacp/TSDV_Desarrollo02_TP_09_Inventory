@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
-    enum SlotsEquipment { LeftWeapon, RightWeapon, Helmet, Gloves, Boots, Pants, Armor, Size }
-    List<Slot> EquipmentList;
+    enum SlotsOutfit { Helmet, Gloves, Boots, Pants, Armor, Size }
+    [SerializeField] int weaponSlotsAmount = 4;
+    List<Slot> OutfitList;
+    List<Slot> ArmsList;
     Inventory inventory;
 
     private void Start()
     {
         inventory = GetComponent<Inventory>();
-        for (int i = 0; i < (int)SlotsEquipment.Size; i++)
+        for (int i = 0; i < (int)SlotsOutfit.Size; i++)
         {
             Slot newSlot = new Slot();
-            EquipmentList.Add(newSlot);
+            OutfitList.Add(newSlot);
+        }
+        for (int i = 0; i < weaponSlotsAmount; i++)
+        {
+            Slot newSlot = new Slot();
+            ArmsList.Add(newSlot);
         }
     }
 
@@ -27,60 +34,33 @@ public class Equipment : MonoBehaviour
             switch (((Outfit)itemToSwap).type)
             {
                 case OutfitSlotPosition.Helmet:
-                    index = (int)SlotsEquipment.Helmet;
+                    index = (int)SlotsOutfit.Helmet;
                     break;
                 case OutfitSlotPosition.Gloves:
-                    index = (int)SlotsEquipment.Gloves;
+                    index = (int)SlotsOutfit.Gloves;
                     break;
                 case OutfitSlotPosition.Boots:
-                    index = (int)SlotsEquipment.Boots;
+                    index = (int)SlotsOutfit.Boots;
                     break;
                 case OutfitSlotPosition.Pants:
-                    index = (int)SlotsEquipment.Pants;
+                    index = (int)SlotsOutfit.Pants;
                     break;
                 case OutfitSlotPosition.Armor:
-                    index = (int)SlotsEquipment.Armor;
+                    index = (int)SlotsOutfit.Armor;
                     break;
             }
-            Slot temp = EquipmentList[index];
-            EquipmentList[index] = slotToChange;
+            Slot temp = OutfitList[index];
+            OutfitList[index] = slotToChange;
             return temp; 
         }
         else // if(itemToSwap.GetItemType() == ItemType.weapon)
         {
-            if (((Weapon)itemToSwap).twoHanded)
-            {
-                Slot temp;
-                if (EquipmentList[(int)SlotsEquipment.LeftWeapon].used && EquipmentList[(int)SlotsEquipment.RightWeapon].used)
-                {
-                    if (inventory.AddNewItem(EquipmentList[(int)SlotsEquipment.LeftWeapon].ID, 1))
-                    {
-                        EquipmentList[(int)SlotsEquipment.LeftWeapon] = slotToChange;
-                        return EquipmentList[(int)SlotsEquipment.RightWeapon];
-                    }
-                    else
-                    {
-                        return slotToChange;
-                    }
-                }
-                else if (EquipmentList[(int)SlotsEquipment.RightWeapon].used)
-                {
-                    temp = EquipmentList[(int)SlotsEquipment.RightWeapon];
-                }
-                else
-                {
-                    temp = EquipmentList[(int)SlotsEquipment.LeftWeapon];
-                }
-                EquipmentList[(int)SlotsEquipment.RightWeapon].EmptySlot();
-                EquipmentList[(int)SlotsEquipment.LeftWeapon] = slotToChange;
-                return temp;
-            }
-            else
-            {
-                Slot temp = EquipmentList[(int)SlotsEquipment.LeftWeapon];
-                EquipmentList[(int)SlotsEquipment.LeftWeapon] = slotToChange;
-                return temp;
-            }
+            Slot returnSlot = ArmsList[0];
+            ArmsList[0] = slotToChange;
+            Slot temp = ArmsList[ArmsList.Count - 1];
+            ArmsList[ArmsList.Count -1] = ArmsList[0];
+            ArmsList[0] = temp;
+            return returnSlot;
         }
     }
 
