@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Equipment : MonoBehaviour
 {
-    enum SlotsOutfit { Helmet, Gloves, Boots, Pants, Armor, Size }
+    enum SlotsOutfit { Helmet, Gloves, Boots, Shoulder, Armor, Size }
     [SerializeField] int weaponSlotsAmount = 4;
     [SerializeField] List<Slot> currentOutfit;
     [SerializeField] List<Slot> currentArms;
@@ -42,8 +42,8 @@ public class Equipment : MonoBehaviour
                 case OutfitSlotPosition.Boots:
                     index = (int)SlotsOutfit.Boots;
                     break;
-                case OutfitSlotPosition.Pants:
-                    index = (int)SlotsOutfit.Pants;
+                case OutfitSlotPosition.Shoulder:
+                    index = (int)SlotsOutfit.Shoulder;
                     break;
                 case OutfitSlotPosition.Armor:
                     index = (int)SlotsOutfit.Armor;

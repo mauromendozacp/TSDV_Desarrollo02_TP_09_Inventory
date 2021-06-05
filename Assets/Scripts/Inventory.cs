@@ -56,7 +56,6 @@ public class Slot
     {
         return str1.CompareTo(str2);
     }
-
 }
 
 public class Inventory : MonoBehaviour
@@ -180,6 +179,15 @@ public class Inventory : MonoBehaviour
                 Debug.Log("Wrong Sort int from button, can't Sort.");
                 break;
         }
+    }
+
+    public int GetSize()
+    {
+        return size;
+    }
+    public Slot GetSlot(int index)
+    {
+        return CurrentItems[index];
     }
 
     class SortByName : IComparer<Slot>
