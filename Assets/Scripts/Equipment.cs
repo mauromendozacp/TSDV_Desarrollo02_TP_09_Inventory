@@ -53,7 +53,7 @@ public class Equipment : MonoBehaviour
             currentOutfit[index] = newItemSlot;
             return temp;
         }
-        else // if(itemToSwap.GetItemType() == ItemType.weapon)
+        else // if(itemToSwap.GetItemType() == ItemType.Arms)
         {
             Slot returnSlot = currentArms[0];
             currentArms[0] = newItemSlot;

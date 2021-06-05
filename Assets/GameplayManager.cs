@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameplayManager : MonoBehaviour
 {
 
-    [SerializeField] AllItems allItems;
+    [SerializeField] ItemList allItems;
 
     static private GameplayManager instance;
 
@@ -25,17 +25,17 @@ public class GameplayManager : MonoBehaviour
 
     public int GetRandomItemID()
     {
-        return Random.Range(0, allItems.itemList.Count);
+        return Random.Range(0, allItems.List.Count);
     }
 
     public int GetRandomAmmountOfItem(int id)
     {
-        return Random.Range(1, allItems.itemList[id].maxStack);
+        return Random.Range(1, allItems.List[id].maxStack);
     }
 
     public Item GetItemFromID(int id)
     {
-        return allItems.itemList[id];
+        return allItems.List[id];
     }
 
 }

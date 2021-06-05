@@ -6,9 +6,10 @@ using UnityEngine;
 [System.Serializable]
 public class Slot
 {
-    public int ID { get; set; }
-    public int amount { get; set; }
-    public bool used { get; set; }
+    public int ID;
+    public int amount;
+    public bool used;
+    public Item test;
     public Slot()
     {
         ID = -1;
@@ -21,9 +22,21 @@ public class Slot
         this.amount = amount;
         used = true;
     }
-    public void AddAmount(int amount)
+    public int AddAmount(int amount)
     {
         this.amount += amount;
+        int maxAmount = GameplayManager.GetInstance().GetItemFromID(ID).maxStack;
+        if (amount > maxAmount)
+        {
+            int difference = amount - maxAmount;
+            this.amount = maxAmount;
+            return difference;
+        }
+        else if (amount <= 0)
+        {
+            EmptySlot();
+        }
+        return 0;
     }
     public void FillSlot(int ID, int amount)
     {
@@ -38,6 +51,12 @@ public class Slot
         used = false;
     }
     public bool IsEmpty() { return used; }
+
+    int SortSlotsByName(string str1, string str2)
+    {
+        return str1.CompareTo(str2);
+    }
+
 }
 
 public class Inventory : MonoBehaviour
@@ -58,6 +77,7 @@ public class Inventory : MonoBehaviour
             int index = GameplayManager.GetInstance().GetRandomItemID();
             int amount = GameplayManager.GetInstance().GetRandomAmmountOfItem(index);
             Slot newSlot = new Slot(index, amount);
+            newSlot.test = GameplayManager.GetInstance().GetItemFromID(index);
             CurrentItems.Add(newSlot);
         }
     }
@@ -114,7 +134,7 @@ public class Inventory : MonoBehaviour
     {
         if(GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
         {
-
+            CurrentItems[slotPos].AddAmount(-1);
         }
         else
         {
@@ -122,4 +142,65 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void Divide(int slotPos)
+    {
+        if(CurrentItems[slotPos].amount > 1)
+        {
+            int dividedAmount = (CurrentItems[slotPos].amount / 2) + 1;
+            if (AddNewItem(CurrentItems[slotPos].ID, dividedAmount))
+            {
+                CurrentItems[slotPos].amount /= 2;
+            }
+        }
+        else
+        {
+            Debug.Log("No puedo dividir");
+        }
+    }
+
+    public enum SortType { Type, Name, Level }
+
+    public void Sort(int type)
+    {
+        switch ((SortType)type)
+        {
+            case SortType.Type:
+                SortByType sortType = new SortByType();
+                CurrentItems.Sort(sortType);
+                break;
+            case SortType.Name:
+                SortByName sortName = new SortByName();
+                CurrentItems.Sort(sortName);
+                break;
+            case SortType.Level:
+                SortByLevel sortLevel = new SortByLevel();
+                CurrentItems.Sort(sortLevel);
+                break;
+            default:
+                Debug.Log("Wrong Sort int from button, can't Sort.");
+                break;
+        }
+    }
+
+    class SortByName : IComparer<Slot>
+    {
+        public int Compare(Slot x, Slot y)
+        {
+            return GameplayManager.GetInstance().GetItemFromID(x.ID).name.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).name);
+        }
+    }
+    class SortByLevel : IComparer<Slot>
+    {
+        public int Compare(Slot x, Slot y)
+        {
+            return GameplayManager.GetInstance().GetItemFromID(x.ID).level.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).level);
+        }
+    }
+    class SortByType : IComparer<Slot>
+    {
+        public int Compare(Slot x, Slot y)
+        {
+            return GameplayManager.GetInstance().GetItemFromID(x.ID).GetItemType().CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).GetItemType());
+        }
+    }
 }
