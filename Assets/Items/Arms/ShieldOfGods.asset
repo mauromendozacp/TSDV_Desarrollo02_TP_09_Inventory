@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: ShieldOfGods
   m_EditorClassIdentifier: 
   itemName: Shield Of Gods
-  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: -9080700020481880845, guid: e7330964e83f36b468d866c59f997e58, type: 3}
   worldPrefab: {fileID: 0}
   maxStack: 1
   level: 1

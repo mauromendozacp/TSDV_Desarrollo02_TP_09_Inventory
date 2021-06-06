@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: WeaponSwordOfZeus
   m_EditorClassIdentifier: 
   itemName: Sword of Zeus
-  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  icon: {fileID: 2163036573998151787, guid: e7330964e83f36b468d866c59f997e58, type: 3}
   worldPrefab: {fileID: 0}
   maxStack: 1
   level: 0
