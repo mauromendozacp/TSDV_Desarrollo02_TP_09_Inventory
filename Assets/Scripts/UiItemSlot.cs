@@ -1,4 +1,6 @@
-﻿using TMPro;
+﻿using System;
+using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,6 +21,7 @@ public class UiItemSlot : MonoBehaviour
     {
         this.indexList = indexList;
         this.id = id;
+
         if (id < 0)
         {
             GetComponent<Image>().sprite = inv.prefaButtonSlot.GetComponent<Image>().sprite;
@@ -51,6 +54,22 @@ public class UiItemSlot : MonoBehaviour
         }
     }
 
+    void Refresh(PlayerList playerlist)
+    {
+        switch (playerlist)
+        {
+            case PlayerList.Arms:
+            case PlayerList.Outfit:
+                id = inv.equipment.GetID(indexList);
+                break;
+            case PlayerList.Inventory:
+                id = inv.inventory.GetID(indexList);
+                break;
+        }
+
+        SetButton(indexList, id);
+    }
+
     private void Awake()
     {
         inv = FindObjectOfType<UiInventory>();
@@ -62,6 +81,16 @@ public class UiItemSlot : MonoBehaviour
             return;
 
         inv.MouseDown(btn);
+    }
+
+    private void Start()
+    {
+        inv.RefreshAllButtons += RefreshButton;
+    }
+
+    void RefreshButton()
+    {
+        Refresh(playerList);
     }
 
     public void MouseDrag()

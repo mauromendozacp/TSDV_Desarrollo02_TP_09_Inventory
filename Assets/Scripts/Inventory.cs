@@ -196,6 +196,10 @@ public class Inventory : MonoBehaviour
     {
         CurrentItems[index] = slot;
     }
+    public int GetID(int index)
+    {
+        return CurrentItems[index].ID;
+    }
 
     class SortByName : IComparer<Slot>
     {
