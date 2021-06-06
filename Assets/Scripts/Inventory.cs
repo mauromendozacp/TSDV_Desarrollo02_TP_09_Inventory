@@ -8,19 +8,16 @@ public class Slot
 {
     public int ID;
     public int amount;
-    public bool used;
 
     public Slot()
     {
         ID = -1;
         amount = 0;
-        used = false;
     }
     public Slot(int ID, int amount)
     {
         this.ID = ID;
         this.amount = amount;
-        used = true;
     }
     public int AddAmount(int amount)
     {
@@ -42,15 +39,13 @@ public class Slot
     {
         this.ID = ID;
         this.amount = amount;
-        used = true;
     }
     public void EmptySlot()
     {
         ID = -1;
         amount = 0;
-        used = false;
     }
-    public bool IsEmpty() { return used; }
+    public bool IsEmpty() { return ID < 0; }
 
     int SortSlotsByName(string str1, string str2)
     {
@@ -82,7 +77,7 @@ public class Inventory : MonoBehaviour
 
     public bool AddNewItem(int ID, int amount, int slotPos)
     {
-        if (!CurrentItems[slotPos].IsEmpty())
+        if (CurrentItems[slotPos].IsEmpty())
         {
             CurrentItems[slotPos].FillSlot(ID, amount);
             return true;
@@ -104,7 +99,7 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < size; i++)
         {
-            if (!CurrentItems[i].used)
+            if (CurrentItems[i].IsEmpty())
             {
                 CurrentItems[i].FillSlot(ID, amount);
                 return true;
@@ -115,7 +110,7 @@ public class Inventory : MonoBehaviour
 
     public void DeleteItem(int slotPos)
     {
-        if (CurrentItems[slotPos].used)
+        if (!CurrentItems[slotPos].IsEmpty())
         {
             CurrentItems[slotPos].EmptySlot();
         }
