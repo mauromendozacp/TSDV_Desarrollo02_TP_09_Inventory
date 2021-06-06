@@ -134,11 +134,8 @@ public class Equipment : MonoBehaviour
             indexInventory = index2;
             indexOutfit = index1;
             itemToSwap = GameplayManager.GetInstance().GetItemFromID(GetSlot(indexOutfit).ID);
-            if (index2 > -1)
+            if (inventory.GetSlot(indexInventory).ID > -1)
             {
-                int indexSwaped = GetSlot(indexInventory).ID;
-                if (indexSwaped < 0)
-                    return false;
                 Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
                 if (itemToSwap.GetItemType() != itemSwaped.GetItemType())
                     return false;
