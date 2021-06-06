@@ -188,6 +188,10 @@ public class Inventory : MonoBehaviour
     {
         return CurrentItems[index];
     }
+    public void SetSlot(int index, Slot slot)
+    {
+        CurrentItems[index] = slot;
+    }
 
     class SortByName : IComparer<Slot>
     {

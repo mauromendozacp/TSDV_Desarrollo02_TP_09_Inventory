@@ -1,21 +1,42 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class UiItemSlot : MonoBehaviour
 {
+    public enum PlayerList { Inventory, Outfit, Arms }
+
     [SerializeField] private UiInventory inv;
+    [SerializeField] private PlayerList playerList = PlayerList.Inventory;
     [SerializeField] private int indexList;
     [SerializeField] private int id;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
+    public PlayerList GetPlayerList() => playerList;
     
     public void SetButton(int indexList, int id)
     {
+        if (GameplayManager.GetInstance().GetItemFromID(id).maxStack > 1)
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(true);
+            gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inv.inventory.GetSlot(indexList).amount.ToString();
+        }
+        else
+        {
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        }
         this.indexList = indexList;
         this.id = id;
-        Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
-        GetComponent<Image>().sprite = sprite;
+        if (id < 0)
+        {
+            GetComponent<Image>().sprite = inv.prefaButtonSlot.GetComponent<Image>().sprite;
+        }
+        else
+        {
+            Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
+            GetComponent<Image>().sprite = sprite;
+        }
     }
 
     private void Awake()
@@ -25,6 +46,9 @@ public class UiItemSlot : MonoBehaviour
 
     public void MouseDown(RectTransform btn)
     {
+        if (id < 0)
+            return;
+
         inv.MouseDown(btn);
     }
 
@@ -45,16 +69,18 @@ public class UiItemSlot : MonoBehaviour
             Vector2 mousePos = Input.mousePosition;
             if (inv.mousePos == mousePos)
             {
-                inv.id2 = btn.GetComponent<UiItemSlot>();
+                inv.slotDrop = btn.GetComponent<UiItemSlot>();
                 inv.SwapButtonsIDs();
             }
+
             inv.secondParameter = false;
         }
 
+        if (id < 0) 
+            return;
+
         Debug.Log("EnterOver");
-
         inv.toolTip.gameObject.SetActive(true);
-
         inv.MouseEnterOver(btn);
     }
 

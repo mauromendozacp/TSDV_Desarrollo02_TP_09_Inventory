@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Button = UnityEngine.UI.Button;
 using Image = UnityEngine.UI.Image;
@@ -10,6 +11,7 @@ public class UiInventory : MonoBehaviour
     public Button prefaButtonSlot;
     public Image toolTip;
     public Inventory inventory;
+    public Equipment equipment;
 
     public Image slotAux;
     public RectTransform content;
@@ -132,8 +134,8 @@ public class UiInventory : MonoBehaviour
         return text;
     }
 
-    private UiItemSlot id1;
-    public UiItemSlot id2;
+    private UiItemSlot slotPick;
+    public UiItemSlot slotDrop;
     public Vector2 mousePos;
 
     public void MouseUp(RectTransform btn)
@@ -144,16 +146,28 @@ public class UiInventory : MonoBehaviour
 
         mousePos = Input.mousePosition;
         secondParameter = true;
-        id1 = btn.GetComponent<UiItemSlot>();
+        slotPick = btn.GetComponent<UiItemSlot>();
     }
 
     public void SwapButtonsIDs()
     {
-        inventory.SwapItem(id1.GetIndex(), id2.GetIndex());
+        if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory) && (slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
+        {
+            inventory.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex());
 
-        int slotid1 = id1.GetID();
-        id1.SetButton(id1.GetIndex(), id2.GetID());
-        id2.SetButton(id2.GetIndex(), slotid1);
+            int slotid1 = slotPick.GetID();
+            slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
+            slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+        }
+        else
+        {
+            if (equipment.TrySwapCross(slotPick.GetIndex(), slotDrop.GetIndex(), slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
+            {
+                int slotid1 = slotPick.GetID();
+                slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
+                slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+            }
+        }
     }
 
     public void MouseDrag()
