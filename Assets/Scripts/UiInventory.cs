@@ -83,7 +83,7 @@ public class UiInventory : MonoBehaviour
 
     void Update()
     {
-        ResizeContent();
+        //ResizeContent();
     }
 
     public void MouseDown(RectTransform btn)
@@ -178,6 +178,16 @@ public class UiInventory : MonoBehaviour
 
     public void SwapButtonsIDs()
     {
+        if (slotDrop.GetPlayerList() == UiItemSlot.PlayerList.None)
+        {
+            if (slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory)
+            {
+                inventory.DeleteItem(slotPick.GetIndex());
+                slotPick.RefreshButton();
+            }
+            return;
+        }
+
         if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory) && (slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
         {
             inventory.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex());

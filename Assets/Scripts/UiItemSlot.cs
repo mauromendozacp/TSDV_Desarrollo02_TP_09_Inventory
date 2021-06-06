@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class UiItemSlot : MonoBehaviour
 {
-    public enum PlayerList { Inventory, Outfit, Arms }
+    public enum PlayerList { Inventory, Outfit, Arms, None }
 
     [SerializeField] private UiInventory inv;
     [SerializeField] private PlayerList playerList = PlayerList.Inventory;
@@ -19,6 +19,11 @@ public class UiItemSlot : MonoBehaviour
     
     public void SetButton(int indexList, int id)
     {
+        if (playerList == PlayerList.None)
+        {
+            id = -1;
+            return;
+        }
         this.indexList = indexList;
         this.id = id;
 
@@ -88,7 +93,7 @@ public class UiItemSlot : MonoBehaviour
         inv.RefreshAllButtons += RefreshButton;
     }
 
-    void RefreshButton()
+    public void RefreshButton()
     {
         Refresh(playerList);
     }
@@ -117,12 +122,15 @@ public class UiItemSlot : MonoBehaviour
             inv.secondParameter = false;
         }
 
-        if (id < 0) 
+        if (id < 0)
             return;
 
         Debug.Log("EnterOver");
-        inv.toolTip.gameObject.SetActive(true);
-        inv.MouseEnterOver(btn);
+        if (playerList != PlayerList.None)
+        {
+            inv.toolTip.gameObject.SetActive(true);
+            inv.MouseEnterOver(btn);
+        }
     }
 
     public void MouseExitOver()
