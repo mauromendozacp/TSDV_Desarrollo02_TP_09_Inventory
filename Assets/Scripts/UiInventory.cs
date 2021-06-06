@@ -92,6 +92,7 @@ public class UiInventory : MonoBehaviour
         slotAux.transform.position = Input.mousePosition;
         slotAux.GetComponent<Image>().sprite = btn.GetComponent<Image>().sprite;
         slotAux.gameObject.SetActive(true);
+        slotAux.transform.GetChild(0).GetComponent<Image>().sprite = btn.transform.GetChild(0).GetComponent<Image>().sprite;
         toolTip.gameObject.SetActive(false);
     }
 
@@ -170,7 +171,7 @@ public class UiInventory : MonoBehaviour
         Debug.Log("Up.", gameObject);
         slotAux.transform.position = Input.mousePosition;
         slotAux.gameObject.SetActive(false);
-
+        
         mousePos = Input.mousePosition;
         secondParameter = true;
         slotPick = btn.GetComponent<UiItemSlot>();
