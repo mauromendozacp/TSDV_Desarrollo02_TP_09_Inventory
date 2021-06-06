@@ -118,6 +118,15 @@ public class Inventory : MonoBehaviour
 
     public void SwapItem(int slotPosFrom, int slotPosTo)
     {
+        if (!CurrentItems[slotPosFrom].IsEmpty() && !CurrentItems[slotPosTo].IsEmpty())
+        {
+            Item fromItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosFrom].ID);
+            Item toItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosTo].ID);
+            if (fromItem.GetItemType() == toItem.GetItemType())
+            {
+
+            }
+        }
         Slot temp = new Slot(CurrentItems[slotPosFrom].ID, CurrentItems[slotPosFrom].amount);
         CurrentItems[slotPosFrom] = CurrentItems[slotPosTo];
         CurrentItems[slotPosTo] = temp;

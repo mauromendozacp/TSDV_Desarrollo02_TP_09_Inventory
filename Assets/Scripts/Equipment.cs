@@ -134,11 +134,20 @@ public class Equipment : MonoBehaviour
             indexInventory = index2;
             indexOutfit = index1;
             itemToSwap = GameplayManager.GetInstance().GetItemFromID(GetSlot(indexOutfit).ID);
-            if (inventory.GetSlot(indexInventory).ID > -1)
+            if (!inventory.GetSlot(indexInventory).IsEmpty())
             {
                 Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
                 if (itemToSwap.GetItemType() != itemSwaped.GetItemType())
+                {
                     return false;
+                }
+                else if(itemToSwap.GetItemType() == ItemType.Outfit)
+                {
+                    if (((Outfit)itemToSwap).type != ((Outfit)itemSwaped).type)
+                    {
+                        return false;
+                    }
+                }
             }
         }
 
@@ -155,7 +164,7 @@ public class Equipment : MonoBehaviour
         else if (itemToSwap.GetItemType() == ItemType.Outfit) // Se tiró en un Outfit
         {
             OutfitSlotPosition slotsOutfit = (OutfitSlotPosition) (indexOutfit - weaponSlotsAmount);
-            if (((Outfit) itemToSwap).type == slotsOutfit)
+            if (((Outfit)itemToSwap).type == slotsOutfit)
             {
                 Slot temp = inventory.GetSlot(indexInventory);
                 inventory.SetSlot(indexInventory, currentEquipment[indexOutfit]);
