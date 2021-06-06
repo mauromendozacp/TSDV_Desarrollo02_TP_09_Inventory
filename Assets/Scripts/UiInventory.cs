@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using TMPro;
+using UnityEditor.Experimental.TerrainAPI;
 using UnityEngine;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
@@ -86,12 +87,14 @@ public class UiInventory : MonoBehaviour
 
     public void MouseEnterOver(RectTransform btn)
     {
+        UiItemSlot uiItem = btn.GetComponent<UiItemSlot>();
+
         toolTip.transform.position = new Vector3(btn.transform.position.x, btn.transform.position.y, btn.transform.position.z);
-        int id = btn.GetComponent<UiItemSlot>().GetID();
+        int id = uiItem.GetID();
         
         Debug.Log("ID over: " + id);
 
-        string text = TextFormatter(btn.GetComponent<UiItemSlot>(), id);
+        string text = TextFormatter(uiItem, id, uiItem.GetPlayerList());
         TextMeshProUGUI textMesh = toolTip.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         textMesh.text = text;
 
@@ -120,10 +123,24 @@ public class UiInventory : MonoBehaviour
         Debug.Log("Count del For: " + lines);
     }
 
-    string TextFormatter(UiItemSlot UiSlot, int idItem)
+    string TextFormatter(UiItemSlot UiSlot, int idItem, UiItemSlot.PlayerList playerList)
     {
         int index = UiSlot.GetIndex();
-        Slot slot = inventory.GetSlot(index);
+        Slot slot;
+        switch (playerList)
+        {
+            case UiItemSlot.PlayerList.Arms:
+            case UiItemSlot.PlayerList.Outfit:
+                slot = equipment.GetSlot(index);
+                break;
+            case UiItemSlot.PlayerList.Inventory:
+                slot = inventory.GetSlot(index);
+                break;
+            default:
+                slot = inventory.GetSlot(index);
+                break;
+        }
+        
         Item myItem = GameplayManager.GetInstance().GetItemFromID(idItem);
 
         string text = myItem.ItemToString();
@@ -159,7 +176,7 @@ public class UiInventory : MonoBehaviour
             slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
             slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
         }
-        else
+        else if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() != UiItemSlot.PlayerList.Inventory)|| slotPick.GetPlayerList() != UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory)
         {
             if (equipment.TrySwapCross(slotPick.GetIndex(), slotDrop.GetIndex(), slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
             {
@@ -167,6 +184,12 @@ public class UiInventory : MonoBehaviour
                 slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
                 slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
             }
+        }
+        else if(equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
+        {
+            int slotid1 = slotPick.GetID();
+            slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
+            slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
         }
     }
 

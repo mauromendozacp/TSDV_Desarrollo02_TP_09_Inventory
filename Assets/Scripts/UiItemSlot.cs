@@ -17,25 +17,37 @@ public class UiItemSlot : MonoBehaviour
     
     public void SetButton(int indexList, int id)
     {
-        if (GameplayManager.GetInstance().GetItemFromID(id).maxStack > 1)
-        {
-            gameObject.transform.GetChild(0).gameObject.SetActive(true);
-            gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inv.inventory.GetSlot(indexList).amount.ToString();
-        }
-        else
-        {
-            gameObject.transform.GetChild(0).gameObject.SetActive(false);
-        }
         this.indexList = indexList;
         this.id = id;
         if (id < 0)
         {
             GetComponent<Image>().sprite = inv.prefaButtonSlot.GetComponent<Image>().sprite;
+            gameObject.transform.GetChild(0).gameObject.SetActive(false);
         }
         else
         {
             Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
             GetComponent<Image>().sprite = sprite;
+
+            if (GameplayManager.GetInstance().GetItemFromID(id).maxStack > 1)
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(true);
+                switch (playerList)
+                {
+                    case UiItemSlot.PlayerList.Arms:
+                    case UiItemSlot.PlayerList.Outfit:
+                        gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inv.equipment.GetSlot(indexList).amount.ToString();
+                        break;
+                    case UiItemSlot.PlayerList.Inventory:
+                        gameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = inv.inventory.GetSlot(indexList).amount.ToString();
+                        break;
+                }
+                
+            }
+            else
+            {
+                gameObject.transform.GetChild(0).gameObject.SetActive(false);
+            }
         }
     }
 

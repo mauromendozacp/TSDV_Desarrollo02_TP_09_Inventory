@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
 {
-
     [SerializeField] ItemList allItems;
 
     static private GameplayManager instance;
@@ -37,5 +36,4 @@ public class GameplayManager : MonoBehaviour
     {
         return allItems.List[id];
     }
-
 }
