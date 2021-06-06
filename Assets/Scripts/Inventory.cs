@@ -9,7 +9,7 @@ public class Slot
     public int ID;
     public int amount;
     public bool used;
-    public Item test;
+
     public Slot()
     {
         ID = -1;
@@ -76,7 +76,6 @@ public class Inventory : MonoBehaviour
             int index = GameplayManager.GetInstance().GetRandomItemID();
             int amount = GameplayManager.GetInstance().GetRandomAmmountOfItem(index);
             Slot newSlot = new Slot(index, amount);
-            newSlot.test = GameplayManager.GetInstance().GetItemFromID(index);
             CurrentItems.Add(newSlot);
         }
     }
@@ -129,7 +128,7 @@ public class Inventory : MonoBehaviour
         CurrentItems[slotPosTo] = temp;
     }
 
-    public void UseItem(int slotPos)
+    public void UseItem(int slotPos)    // Doble click
     {
         if(GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
         {

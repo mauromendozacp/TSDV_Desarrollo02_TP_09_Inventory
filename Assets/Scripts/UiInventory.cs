@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Globalization;
+﻿using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
+using Image = UnityEngine.UI.Image;
 
 public class UiInventory : MonoBehaviour
 {
@@ -14,17 +15,23 @@ public class UiInventory : MonoBehaviour
     public RectTransform content;
     private GridLayoutGroup gridLayout;
 
+    public bool secondParameter;
+
     private void Awake()
     {
         gridLayout = content.GetComponent<GridLayoutGroup>();
     }
 
-    void Start()
+    void Start()    //   Carrera de start con Inventory
+    {
+        Invoke("IniciarInventarioUI", 1);       // ver como iniciar despues de la lógica de inventario.
+    }
+
+    void IniciarInventarioUI()
     {
         CreateButtonsSlots();
         ResizeContent();
     }
-
     void CreateButtonsSlots()
     {
         int invSize = inventory.GetSize();
@@ -33,10 +40,11 @@ public class UiInventory : MonoBehaviour
             Slot slot = inventory.GetSlot(i);
             Button newButton = Instantiate(prefaButtonSlot, content.transform);
             newButton.name = ("Slot" + i);
-            newButton.GetComponent<UiItemSlot>().SetButton(i, slot.ID, slot.amount, slot.used);
+            
+            newButton.GetComponent<UiItemSlot>().SetButton(i, slot.ID);
         }
     }
-
+    
     void ResizeContent()
     {
         int cantChild = content.transform.childCount;
@@ -65,10 +73,11 @@ public class UiInventory : MonoBehaviour
         ResizeContent();
     }
 
-    public void MouseDown()
+    public void MouseDown(RectTransform btn)
     {
         Debug.Log("Down.");
         slotAux.transform.position = Input.mousePosition;
+        slotAux.GetComponent<Image>().sprite = btn.GetComponent<Image>().sprite;
         slotAux.gameObject.SetActive(true);
         toolTip.gameObject.SetActive(false);
     }
@@ -76,74 +85,75 @@ public class UiInventory : MonoBehaviour
     public void MouseEnterOver(RectTransform btn)
     {
         toolTip.transform.position = new Vector3(btn.transform.position.x, btn.transform.position.y, btn.transform.position.z);
-
-
         int id = btn.GetComponent<UiItemSlot>().GetID();
         
         Debug.Log("ID over: " + id);
 
         string text = TextFormatter(btn.GetComponent<UiItemSlot>(), id);
-        toolTip.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>().text = text;
+        TextMeshProUGUI textMesh = toolTip.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
+        textMesh.text = text;
+
+        int lines = 0;
+        int chars = 0;
+        int maxChar = 0;
+        float offset = 51;
+        float margin = 10;
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            if (text[i] == '\n')
+            {
+                lines++;
+                if (maxChar < chars)
+                    maxChar = chars;
+                chars = 0;
+            }
+            else
+            {
+                chars++;
+            }
+        }
+        toolTip.rectTransform.sizeDelta = new Vector2(toolTip.rectTransform.sizeDelta.x, lines * offset + margin);
+
+        Debug.Log("Count del For: " + lines);
     }
 
-    string TextFormatter(UiItemSlot slot, int idItem)
+    string TextFormatter(UiItemSlot UiSlot, int idItem)
     {
-        int index = slot.GetIndex();
+        int index = UiSlot.GetIndex();
+        Slot slot = inventory.GetSlot(index);
         Item myItem = GameplayManager.GetInstance().GetItemFromID(idItem);
-        string name = myItem.itemName;
-        string type = "-";
-        float weight = myItem.weight;
-        int amount = slot.GetAmount();
-        int price = myItem.price;
 
-
-        switch (myItem.GetItemType())
+        string text = myItem.ItemToString();
+        if (myItem.maxStack > 1)
         {
-            case ItemType.Arms:
-                type = "Arms";
-                /*switch (((WeaponType)myItem).type)
-                {
-                    case Arms.WeaponType.Bow:
-                        break;
-                }*/
-
-                break;
-            case ItemType.Consumible:
-                type = "Consumible";
-
-                break;
-            case ItemType.Outfit:
-
-                switch (((Outfit) myItem).type)
-                {
-                    case OutfitSlotPosition.Armor:
-                        type = "Armor";
-                        break;
-                    case OutfitSlotPosition.Boots:
-                        type = "Boots";
-                        break;
-                    case OutfitSlotPosition.Gloves:
-                        type = "Gloves";
-                        break;
-                    case OutfitSlotPosition.Helmet:
-                        type = "Helmet";
-                        break;
-                    case OutfitSlotPosition.Shoulder:
-                        type = "Shoulder";
-                        break;
-                }
-                break;
+            text += "\nAmount: " + slot.amount;
         }
-
-        string text = "Name: " + name + "\nType: " + type + "\nWeight: " + weight + "\nAmount: " + amount + "\nPrice: " + price;
         return text;
     }
 
-    public void MouseUp()
+    private UiItemSlot id1;
+    public UiItemSlot id2;
+    public Vector2 mousePos;
+
+    public void MouseUp(RectTransform btn)
     {
-        Debug.Log("Up.");
+        Debug.Log("Up.", gameObject);
         slotAux.transform.position = Input.mousePosition;
         slotAux.gameObject.SetActive(false);
+
+        mousePos = Input.mousePosition;
+        secondParameter = true;
+        id1 = btn.GetComponent<UiItemSlot>();
+    }
+
+    public void SwapButtonsIDs()
+    {
+        inventory.SwapItem(id1.GetIndex(), id2.GetIndex());
+
+        int slotid1 = id1.GetID();
+        id1.SetButton(id1.GetIndex(), id2.GetID());
+        id2.SetButton(id2.GetIndex(), slotid1);
     }
 
     public void MouseDrag()

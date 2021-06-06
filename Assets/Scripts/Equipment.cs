@@ -64,7 +64,7 @@ public class Equipment : MonoBehaviour
         }
     }
 
-    public Slot SwapEquipment(Slot newItemSlot, int slotPos)
+    public Slot SwapEquipment(Slot newItemSlot, int slotPos)    // Arrastrar a un lugar
     {
         Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
         if (itemToSwap.GetItemType() == ItemType.Outfit)

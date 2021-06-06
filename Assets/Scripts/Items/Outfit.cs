@@ -11,4 +11,35 @@ public class Outfit : Item
     public int defense;
 
     public override ItemType GetItemType() { return ItemType.Outfit; }
+
+    public override string ItemToString()
+    {
+        string text = base.ItemToString();
+        string thisType;
+        switch (type)
+        {
+            case OutfitSlotPosition.Armor:
+                thisType = "Armor";
+                break;
+            case OutfitSlotPosition.Boots:
+                thisType = "Boots";
+                break;
+            case OutfitSlotPosition.Gloves:
+                thisType = "Gloves";
+                break;
+            case OutfitSlotPosition.Helmet:
+                thisType = "Helmet";
+                break;
+            case OutfitSlotPosition.Shoulder:
+                thisType = "Shoulder";
+                break;
+            default:
+                thisType = "------";
+                break;
+        }
+
+        text += "\nType: " + thisType + "\nDefense: " + defense;
+
+        return text;
+    }
 }

@@ -1,27 +1,21 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.EventSystems;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UiItemSlot : MonoBehaviour
 {
-    private UiInventory inv;
-    private int indexList;
-    private int id;
-    private int amount;
-    private bool used;
+    [SerializeField] private UiInventory inv;
+    [SerializeField] private int indexList;
+    [SerializeField] private int id;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
-    public int GetAmount() => amount;
     
-    public void SetButton(int indexList, int id, int amount, bool used)
+    public void SetButton(int indexList, int id)
     {
         this.indexList = indexList;
         this.id = id;
-        this.amount = amount;
-        this.used = used;
+        Sprite sprite = GameplayManager.GetInstance().GetItemFromID(id).icon;
+        GetComponent<Image>().sprite = sprite;
     }
 
     private void Awake()
@@ -29,19 +23,9 @@ public class UiItemSlot : MonoBehaviour
         inv = FindObjectOfType<UiInventory>();
     }
 
-    void Start()
+    public void MouseDown(RectTransform btn)
     {
-
-    }
-
-    void Update()
-    {
-
-    }
-
-    public void MouseDown()
-    {
-        inv.MouseDown();
+        inv.MouseDown(btn);
     }
 
     public void MouseDrag()
@@ -49,18 +33,31 @@ public class UiItemSlot : MonoBehaviour
         inv.MouseDrag();
     }
 
-    public void MouseUp()
+    public void MouseUp(RectTransform btn)
     {
-        inv.MouseUp();
+        inv.MouseUp(btn);
     }
 
     public void MouseEnterOver(RectTransform btn)
     {
-        Debug.Log("OverEnter");
+        if (inv.secondParameter)
+        {
+            Vector2 mousePos = Input.mousePosition;
+            if (inv.mousePos == mousePos)
+            {
+                inv.id2 = btn.GetComponent<UiItemSlot>();
+                inv.SwapButtonsIDs();
+            }
+            inv.secondParameter = false;
+        }
+
+        Debug.Log("EnterOver");
+
         inv.toolTip.gameObject.SetActive(true);
 
         inv.MouseEnterOver(btn);
     }
+
     public void MouseExitOver()
     {
         Debug.Log("OverExit");

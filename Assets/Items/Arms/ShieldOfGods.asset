@@ -9,13 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c9ed03ad7d07849a6b09e6af5d6ca9, type: 3}
-  m_Name: Consumible
+  m_Script: {fileID: 11500000, guid: dc3fc56d1fc003c4e88086a49643a279, type: 3}
+  m_Name: ShieldOfGods
   m_EditorClassIdentifier: 
-  itemName: Beer
+  itemName: Shield Of Gods
   icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   worldPrefab: {fileID: 0}
-  maxStack: 100
+  maxStack: 1
   level: 1
-  weight: 7
-  price: 14
+  weight: 180
+  price: 16
+  resistance: 0
+  size: 0
+  speedRating: 0

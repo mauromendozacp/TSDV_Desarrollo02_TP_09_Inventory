@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
-  m_Name: Outfit
+  m_Name: IronGloves
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
+  itemName: Iron Gloves
+  icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   worldPrefab: {fileID: 0}
   maxStack: 1
-  level: 0
-  weight: 0
-  price: 0
-  type: 0
-  defense: 0
+  level: 1
+  weight: 50
+  price: 30
+  type: 1
+  defense: 20

@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c9ed03ad7d07849a6b09e6af5d6ca9, type: 3}
-  m_Name: Consumible
+  m_Script: {fileID: 11500000, guid: f256741fcbe3a184ea8d20745eae3947, type: 3}
+  m_Name: ArrowWood
   m_EditorClassIdentifier: 
-  itemName: Beer
+  itemName: Arrow Wood
   icon: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   worldPrefab: {fileID: 0}
-  maxStack: 100
+  maxStack: 64
   level: 1
-  weight: 7
-  price: 14
+  weight: 0.5
+  price: 1

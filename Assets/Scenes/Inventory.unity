@@ -313,13 +313,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Name
-
-    Type
-
-    Weight
-
-'
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -349,9 +343,9 @@ MonoBehaviour:
   m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
-  m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 30
+  m_fontSizeMax: 40
   m_fontStyle: 0
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -617,6 +611,7 @@ GameObject:
   - component: {fileID: 2103761072}
   - component: {fileID: 2103761073}
   - component: {fileID: 2103761074}
+  - component: {fileID: 2103761075}
   m_Layer: 5
   m_Name: ToolTip
   m_TagString: Untagged
@@ -641,8 +636,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 519.19995, y: -341.08243}
-  m_SizeDelta: {x: 332.75598, y: 247.10852}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 330, y: 250}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &2103761073
 CanvasRenderer:
@@ -682,6 +677,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2103761075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2103761071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b1e83ba709f54049a2ea88a0e5064dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!222 &87927702241760827
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -736,7 +743,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 465}
+  m_AnchoredPosition: {x: 1070, y: 465}
   m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &87927702241760831
@@ -1732,8 +1739,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4312704909579426586}
   m_HandleRect: {fileID: 4312704909579426589}
   m_Direction: 2
-  m_Value: 0.9999997
-  m_Size: 0.81605285
+  m_Value: 0.99999934
+  m_Size: 0.81605273
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

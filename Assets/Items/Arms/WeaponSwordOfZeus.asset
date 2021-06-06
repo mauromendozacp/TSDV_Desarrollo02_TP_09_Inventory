@@ -9,16 +9,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc3fc56d1fc003c4e88086a49643a279, type: 3}
-  m_Name: Shield
+  m_Script: {fileID: 11500000, guid: 108e58c2f4ea4ec4baef2c10777a486a, type: 3}
+  m_Name: WeaponSwordOfZeus
   m_EditorClassIdentifier: 
-  itemName: 
-  icon: {fileID: 0}
+  itemName: Sword of Zeus
+  icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
   worldPrefab: {fileID: 0}
-  maxStack: 0
+  maxStack: 1
   level: 0
-  weight: 0
-  price: 0
-  resistance: 0
-  size: 0
-  speedRating: 0
+  weight: 160
+  price: 19
+  type: 0
+  twoHanded: 0
+  damage: 60
+  speed: 120
