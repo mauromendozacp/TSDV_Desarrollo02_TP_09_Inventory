@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2288,11 +2288,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2065337774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 16a219549332bb74cbe5aeebb54aaca2, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f30f830ed5333b479b596e54eceb485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentItems: []
-  size: 50
+  weaponSlotsAmount: 4
+  currentEquipment: []
 --- !u!4 &2065337776
 Transform:
   m_ObjectHideFlags: 0
@@ -2316,11 +2316,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 2065337774}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 363baba2e77959c4a9db325f6a2b9955, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d1d25476ba80ad4c83d5066b5222af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponSlotsAmount: 4
-  currentEquipment: []
+  CurrentItems: []
+  size: 10
 --- !u!1 &2103761071
 GameObject:
   m_ObjectHideFlags: 0
@@ -3465,12 +3465,12 @@ PrefabInstance:
         type: 3}
       propertyPath: equipment
       value: 
-      objectReference: {fileID: 2065337777}
+      objectReference: {fileID: 2065337775}
     - target: {fileID: 4096882175678917668, guid: e5ffa1915ca1dc7408b0a115e99bcc2f,
         type: 3}
       propertyPath: inventory
       value: 
-      objectReference: {fileID: 2065337775}
+      objectReference: {fileID: 2065337777}
     - target: {fileID: 4096882175678917668, guid: e5ffa1915ca1dc7408b0a115e99bcc2f,
         type: 3}
       propertyPath: sortBRect
@@ -3653,7 +3653,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4312704909579426586}
   m_HandleRect: {fileID: 4312704909579426589}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0.9999997
   m_Size: 0.81605285
   m_NumberOfSteps: 0
   m_OnValueChanged:

@@ -180,8 +180,15 @@ public class Equipment : MonoBehaviour
     {
         return currentEquipment[index];
     }
+
+    public List<Slot> GetEquipmentList()
+    {
+        return currentEquipment;
+    }
+
     public int GetID(int index)
     {
         return currentEquipment[index].ID;
     }
+
 }

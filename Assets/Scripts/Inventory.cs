@@ -205,6 +205,8 @@ public class Inventory : MonoBehaviour
     {
         public int Compare(Slot x, Slot y)
         {
+            if (x.IsEmpty()) return 1;
+            else if (y.IsEmpty()) return -1;
             return GameplayManager.GetInstance().GetItemFromID(x.ID).name.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).name);
         }
     }
@@ -212,6 +214,8 @@ public class Inventory : MonoBehaviour
     {
         public int Compare(Slot x, Slot y)
         {
+            if (x.IsEmpty()) return 1;
+            else if (y.IsEmpty()) return -1;
             return GameplayManager.GetInstance().GetItemFromID(x.ID).level.CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).level);
         }
     }
@@ -219,7 +223,15 @@ public class Inventory : MonoBehaviour
     {
         public int Compare(Slot x, Slot y)
         {
+            if (x.IsEmpty()) return 1;
+            else if (y.IsEmpty()) return -1;
             return GameplayManager.GetInstance().GetItemFromID(x.ID).GetItemType().CompareTo(GameplayManager.GetInstance().GetItemFromID(y.ID).GetItemType());
         }
     }
+
+    public List<Slot> GetInventoryList()
+    {
+        return CurrentItems;
+    }
+
 }
