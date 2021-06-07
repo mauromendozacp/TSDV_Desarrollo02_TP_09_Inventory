@@ -19,7 +19,7 @@ public class UiItemSlot : MonoBehaviour
 
     void Start()
     {
-        inv.RefreshAllButtons += RefreshButton;
+        inv.RefreshAllButtonsEvent += RefreshButton;
     }
 
     public void SetButton(int indexList, int id)
@@ -62,10 +62,10 @@ public class UiItemSlot : MonoBehaviour
             }
         }
 
-        Player.OnRefreshMeshAsStatic();
+        Player.OnRefreshMeshAsStatic?.Invoke();
     }
 
-    void Refresh(PlayerList playerlist)
+    private void Refresh(PlayerList playerlist)
     {
         switch (playerlist)
         {
@@ -77,7 +77,6 @@ public class UiItemSlot : MonoBehaviour
                 id = inv.inventory.GetID(indexList);
                 break;
         }
-
         SetButton(indexList, id);
     }
 
@@ -91,7 +90,50 @@ public class UiItemSlot : MonoBehaviour
         if (id < 0)
             return;
 
-        inv.MouseDown(btn);
+        if (Input.GetKey(KeyCode.LeftShift) && Input.GetMouseButtonDown(1))
+        {
+            if (playerList == PlayerList.Inventory)
+            {
+                inv.inventory.Divide(indexList);
+                inv.RefreshAllButtons();
+            }
+        }
+        else if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(1))
+        {
+            if (playerList == PlayerList.Inventory)
+            {
+                inv.inventory.DeleteItem(indexList);
+                Refresh(playerList);
+            }
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            inv.MouseDown(btn);
+        }
+        else if (Input.GetMouseButtonDown(1))
+        {
+            switch (playerList)
+            {
+                case PlayerList.Inventory:
+                    if (inv.inventory.UseItem(indexList))
+                    {
+                        inv.RefreshAllButtons();
+                        inv.RefreshToolTip(btn);
+                    }
+                    break;
+                case PlayerList.Outfit:
+                case PlayerList.Arms:
+                    if (inv.equipment.RemoveEquipment(indexList))
+                    {
+                        inv.RefreshAllButtons();
+                        inv.RefreshToolTip(btn);
+                    }
+                    break;
+                case PlayerList.None:
+                default:
+                    break;
+            }
+        }
     }
 
     public void RefreshButton()
@@ -99,6 +141,10 @@ public class UiItemSlot : MonoBehaviour
         Refresh(playerList);
     }
 
+    private void RefreshTooltipText()
+    {
+
+    }
     public void MouseDrag()
     {
         inv.MouseDrag();
@@ -126,7 +172,7 @@ public class UiItemSlot : MonoBehaviour
         if (id < 0)
             return;
 
-        Debug.Log("EnterOver");
+        //Debug.Log("EnterOver");
         if (playerList != PlayerList.None)
         {
             inv.toolTip.gameObject.SetActive(true);
@@ -136,12 +182,12 @@ public class UiItemSlot : MonoBehaviour
 
     public void MouseExitOver()
     {
-        Debug.Log("OverExit");
+        //Debug.Log("OverExit");
         inv.toolTip.gameObject.SetActive(false);
     }
 
     public void Arrastrando()
     {
-        Debug.Log("Moviendo");
+        //Debug.Log("Moviendo");
     }
 }

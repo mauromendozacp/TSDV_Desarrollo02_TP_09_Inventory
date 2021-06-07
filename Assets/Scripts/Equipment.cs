@@ -22,14 +22,14 @@ public class Equipment : MonoBehaviour
     private void Awake()
     {
         inventory = GetComponent<Inventory>();
-        
+
         for (int i = 0; i < weaponSlotsAmount; i++)
         {
             Slot newSlot = new Slot();
             currentEquipment.Add(newSlot);
         }
 
-        for (int i = 0; i <= (int) OutfitSlotPosition.Armor; i++)
+        for (int i = 0; i <= (int)OutfitSlotPosition.Armor; i++)
         {
             Slot newSlot = new Slot();
             currentEquipment.Add(newSlot);
@@ -39,7 +39,7 @@ public class Equipment : MonoBehaviour
     public void SetNewEquipment(List<Slot> newEquipment)
     {
         currentEquipment.Clear();
-        foreach  (Slot slot in newEquipment)
+        foreach (Slot slot in newEquipment)
         {
             currentEquipment.Add(slot);
         }
@@ -49,30 +49,38 @@ public class Equipment : MonoBehaviour
     {
         return weaponSlotsAmount + (int)OutfitSlotPosition.Armor + 1;
     }
+    public bool RemoveEquipment(int slotPos)
+    {
+        if (inventory.AddNewItem(currentEquipment[slotPos].ID, currentEquipment[slotPos].amount))
+        {
+            currentEquipment[slotPos].EmptySlot();
+            return true;
+        }
+        return false;
+    }
 
-    // Rechequear Funcion
     public Slot SwapEquipment(Slot newItemSlot)
     {
         Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
         if (itemToSwap.GetItemType() == ItemType.Outfit)
         {
-            int index = 0;
-            switch (((Outfit) itemToSwap).type)
+            int index = weaponSlotsAmount;
+            switch (((Outfit)itemToSwap).type)
             {
                 case OutfitSlotPosition.Helmet:
-                    index = (int) OutfitSlotPosition.Helmet;
+                    index += (int)OutfitSlotPosition.Helmet;
                     break;
                 case OutfitSlotPosition.Gloves:
-                    index = (int) OutfitSlotPosition.Gloves;
+                    index += (int)OutfitSlotPosition.Gloves;
                     break;
                 case OutfitSlotPosition.Boots:
-                    index = (int) OutfitSlotPosition.Boots;
+                    index += (int)OutfitSlotPosition.Boots;
                     break;
                 case OutfitSlotPosition.Shoulder:
-                    index = (int) OutfitSlotPosition.Shoulder;
+                    index += (int)OutfitSlotPosition.Shoulder;
                     break;
                 case OutfitSlotPosition.Armor:
-                    index = (int) OutfitSlotPosition.Armor;
+                    index += (int)OutfitSlotPosition.Armor;
                     break;
             }
 
@@ -82,43 +90,20 @@ public class Equipment : MonoBehaviour
         }
         else // if(itemToSwap.GetItemType() == ItemType.Arms)
         {
+            for (int i = 2; i < weaponSlotsAmount; i++) // cambiar
+            {
+                if (currentEquipment[i].IsEmpty())
+                {
+                    Slot newSlot = currentEquipment[i];
+                    currentEquipment[i] = newItemSlot;
+                    return newSlot;
+                }
+            }
             Slot returnSlot = currentEquipment[0];
             currentEquipment[0] = newItemSlot;
-            Slot temp = currentEquipment[currentEquipment.Count - 1];
-            currentEquipment[currentEquipment.Count - 1] = currentEquipment[0];
-            currentEquipment[0] = temp;
-            return returnSlot;
+            return newItemSlot;
         }
     }
-    // Rechequear Funcion
-    public Slot SwapEquipment(Slot newItemSlot, int slotPos) // Arrastrar a un lugar
-    {
-        Item itemToSwap = GameplayManager.GetInstance().GetItemFromID(newItemSlot.ID);
-        if (itemToSwap.GetItemType() == ItemType.Outfit)
-        {
-            Item itemInSlot = GameplayManager.GetInstance().GetItemFromID(currentEquipment[slotPos].ID);
-            if (((Outfit) itemToSwap).type == ((Outfit) itemInSlot).type)
-            {
-                Slot temp = currentEquipment[slotPos];
-                currentEquipment[slotPos] = newItemSlot;
-                return temp;
-            }
-        }
-        else if (itemToSwap.GetItemType() == ItemType.Arms)
-        {
-            Item itemInSlot = GameplayManager.GetInstance().GetItemFromID(currentEquipment[slotPos].ID);
-            Slot temp = currentEquipment[slotPos];
-            currentEquipment[slotPos] = newItemSlot;
-            return temp;
-        }
-
-        return newItemSlot;
-    }
-    
-
-    // Inventario - Equipment
-    // Index1 es el indice en la lista de inventario     
-    // Index2 es el indice en la lista de equipment      
     public bool SwapItem(int index1, int index2)
     {
         if (index1 < weaponSlotsAmount && index2 < weaponSlotsAmount)   // Ambas son armas
@@ -138,19 +123,19 @@ public class Equipment : MonoBehaviour
                 }
             }
             Slot temp = currentEquipment[index1];
-            currentEquipment[index1] =  currentEquipment[index2];
+            currentEquipment[index1] = currentEquipment[index2];
             currentEquipment[index2] = temp;
             return true;
         }
         return false;
     }
-    
-    public bool TrySwapCross(int index1, int index2, bool InvententoryToEquipment)
+
+    public bool TrySwapCross(int index1, int index2, bool InvententoryToEquipment) // Cambiar
     {
         Item itemToSwap;
         int indexInventory = 0;
         int indexOutfit = 0;
-        
+
         if (InvententoryToEquipment)
         {
             indexInventory = index1;
@@ -165,6 +150,7 @@ public class Equipment : MonoBehaviour
                     {
                         inventory.GetSlot(indexInventory).EmptySlot();
                     }
+
                     return true;
                 }
             }
@@ -190,7 +176,7 @@ public class Equipment : MonoBehaviour
                 {
                     return false;
                 }
-                else if(itemToSwap.GetItemType() == ItemType.Outfit)
+                else if (itemToSwap.GetItemType() == ItemType.Outfit)
                 {
                     if (((Outfit)itemToSwap).type != ((Outfit)itemSwaped).type)
                     {
@@ -212,7 +198,7 @@ public class Equipment : MonoBehaviour
         }
         else if (itemToSwap.GetItemType() == ItemType.Outfit) // Se tiró en un Outfit
         {
-            OutfitSlotPosition slotsOutfit = (OutfitSlotPosition) (indexOutfit - weaponSlotsAmount);
+            OutfitSlotPosition slotsOutfit = (OutfitSlotPosition)(indexOutfit - weaponSlotsAmount);
             if (((Outfit)itemToSwap).type == slotsOutfit)
             {
                 Slot temp = inventory.GetSlot(indexInventory);
@@ -239,5 +225,4 @@ public class Equipment : MonoBehaviour
     {
         return currentEquipment[index].ID;
     }
-
 }

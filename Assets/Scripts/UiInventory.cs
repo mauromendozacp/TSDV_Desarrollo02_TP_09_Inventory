@@ -7,10 +7,10 @@ using Image = UnityEngine.UI.Image;
 
 public class UiInventory : MonoBehaviour
 {
-    public Action RefreshAllButtons;
+    public Action RefreshAllButtonsEvent;
 
     Inventory.SortType sortBy = Inventory.SortType.Type;
-    private string[] nameSortBy = {"By Type", "By Name", "By Level"};
+    private string[] nameSortBy = { "By Type", "By Name", "By Level" };
     public RectTransform sortBRect;
     public TMP_Dropdown sortBDrop;
     public Button prefaButtonSlot;
@@ -36,7 +36,7 @@ public class UiInventory : MonoBehaviour
     void Start()    //   Carrera de start con Inventory
     {
         Invoke(nameof(IniciarInventarioUI), 0);       // ver como iniciar despues de la lógica de inventario.
-        
+
         for (int i = 0; i <= (int)Inventory.SortType.Level; i++)
         {
             sortBDrop.options[i].text = nameSortBy[i];
@@ -47,8 +47,14 @@ public class UiInventory : MonoBehaviour
     {
         CreateButtonsSlots();
         ResizeContent();
-        RefreshAllButtons?.Invoke();
+        RefreshAllButtons();
     }
+
+    public void RefreshAllButtons()
+    {
+        RefreshAllButtonsEvent?.Invoke();
+    }
+
     void CreateButtonsSlots()
     {
         int invSize = inventory.GetSize();
@@ -61,7 +67,7 @@ public class UiInventory : MonoBehaviour
             newButton.GetComponent<UiItemSlot>().SetButton(i, slot.ID);
         }
     }
-    
+
     void ResizeContent()
     {
         int cantChild = content.transform.childCount;
@@ -100,18 +106,24 @@ public class UiInventory : MonoBehaviour
         toolTip.gameObject.SetActive(false);
     }
 
-    public void MouseEnterOver(RectTransform btn)
+    public string RefreshToolTip(RectTransform btn)
     {
         UiItemSlot uiItem = btn.GetComponent<UiItemSlot>();
 
         toolTip.transform.position = new Vector3(btn.transform.position.x, btn.transform.position.y, btn.transform.position.z);
         int id = uiItem.GetID();
-        
-        Debug.Log("ID over: " + id);
+
+        //Debug.Log("ID over: " + id);
 
         string text = TextFormatter(uiItem, id, uiItem.GetPlayerList());
         TextMeshProUGUI textMesh = toolTip.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
         textMesh.text = text;
+        return text;
+    }
+
+    public void MouseEnterOver(RectTransform btn)
+    {
+        string text = RefreshToolTip(btn);
 
         int lines = 0;
         int chars = 0;
@@ -135,7 +147,7 @@ public class UiInventory : MonoBehaviour
         }
         toolTip.rectTransform.sizeDelta = new Vector2(toolTip.rectTransform.sizeDelta.x, lines * offset + margin);
 
-        Debug.Log("Count del For: " + lines);
+        //Debug.Log("Count del For: " + lines);
     }
 
     string TextFormatter(UiItemSlot UiSlot, int idItem, UiItemSlot.PlayerList playerList)
@@ -155,7 +167,12 @@ public class UiInventory : MonoBehaviour
                 slot = inventory.GetSlot(index);
                 break;
         }
-        
+
+        if (idItem < 0)
+        {
+            toolTip.gameObject.SetActive(false);
+            return "";
+        }
         Item myItem = GameplayManager.GetInstance().GetItemFromID(idItem);
 
         string text = myItem.ItemToString();
@@ -175,7 +192,7 @@ public class UiInventory : MonoBehaviour
         Debug.Log("Up.", gameObject);
         slotAux.transform.position = Input.mousePosition;
         slotAux.gameObject.SetActive(false);
-        
+
         mousePos = Input.mousePosition;
         secondParameter = true;
         slotPick = btn.GetComponent<UiItemSlot>();
@@ -202,7 +219,7 @@ public class UiInventory : MonoBehaviour
             slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
             slotPick.RefreshButton();
         }
-        else if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() != UiItemSlot.PlayerList.Inventory)|| 
+        else if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() != UiItemSlot.PlayerList.Inventory) ||
                  slotPick.GetPlayerList() != UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory)
         {
             if (equipment.TrySwapCross(slotPick.GetIndex(), slotDrop.GetIndex(), slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory))
@@ -212,9 +229,11 @@ public class UiInventory : MonoBehaviour
                 slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
                 slotPick.RefreshButton();
                 slotDrop.RefreshButton();
+
+
             }
         }
-        else if(equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
+        else if (equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
         {
             int slotid1 = slotPick.GetID();
             slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
@@ -232,12 +251,12 @@ public class UiInventory : MonoBehaviour
 
     public void SortInventory()
     {
-        sortBy = (Inventory.SortType) sortBDrop.value;
+        sortBy = (Inventory.SortType)sortBDrop.value;
 
         inventory.Sort(sortBDrop.value);
-        RefreshAllButtons?.Invoke();
+        RefreshAllButtonsEvent();
     }
-    
+
     public void SetPositionX()
     {
         mouseCurrentPosX = Input.mousePosition.x;

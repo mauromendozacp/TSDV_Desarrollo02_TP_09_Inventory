@@ -29,10 +29,11 @@ public class Slot
             this.amount = maxAmount;
             return difference;
         }
-        else
+        else if (this.amount <= 0)
         {
-            return 0;
+            EmptySlot();
         }
+        return 0;
     }
     public void FillSlot(int ID, int amount)
     {
@@ -70,7 +71,7 @@ public class Inventory : MonoBehaviour
 
     void Start()
     {
-       
+
     }
     public void SetNewInventory(List<Slot> newInventory)
     {
@@ -90,7 +91,7 @@ public class Inventory : MonoBehaviour
         }
         else
         {
-            if(ID == CurrentItems[slotPos].ID && GameplayManager.GetInstance().GetItemFromID(ID).maxStack >= CurrentItems[slotPos].amount + amount)
+            if (ID == CurrentItems[slotPos].ID && GameplayManager.GetInstance().GetItemFromID(ID).maxStack >= CurrentItems[slotPos].amount + amount)
             {
                 CurrentItems[slotPos].AddAmount(amount);
                 return true;
@@ -144,23 +145,27 @@ public class Inventory : MonoBehaviour
         CurrentItems[slotPosTo] = temp;
     }
 
-    public void UseItem(int slotPos)    // Doble click o Click Derecho
+    public bool UseItem(int slotPos)    // Doble click o Click Derecho
     {
-        if(GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
+        if (GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
         {
             CurrentItems[slotPos].AddAmount(-1);
+            if (CurrentItems[slotPos].IsEmpty())
+                return false;
         }
         else
         {
             CurrentItems[slotPos] = equipmentComponent.SwapEquipment(CurrentItems[slotPos]);
         }
+        return true;
     }
 
     public void Divide(int slotPos)
     {
-        if(CurrentItems[slotPos].amount > 1)
+        if (CurrentItems[slotPos].amount > 1)
         {
-            int dividedAmount = (CurrentItems[slotPos].amount / 2) + 1;
+            int dividedAmount = (CurrentItems[slotPos].amount / 2);
+            if (CurrentItems[slotPos].amount % 2 != 0) dividedAmount++;
             if (AddNewItem(CurrentItems[slotPos].ID, dividedAmount))
             {
                 CurrentItems[slotPos].amount /= 2;
@@ -249,5 +254,4 @@ public class Inventory : MonoBehaviour
     {
         return CurrentItems;
     }
-
 }
