@@ -144,8 +144,7 @@ public class Equipment : MonoBehaviour
             itemToSwap = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
             if (!currentEquipment[indexOutfit].IsEmpty())
             {
-                Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(currentEquipment[indexOutfit].ID);
-                if (itemToSwap.GetItemType() == itemSwaped.GetItemType() && itemSwaped.maxStack > 1)
+                if (currentEquipment[indexOutfit].ID == inventory.GetSlot(indexInventory).ID && itemToSwap.maxStack > 1)
                 {
                     inventory.GetSlot(indexInventory).amount = currentEquipment[indexOutfit].AddAmount(inventory.GetSlot(indexInventory).amount);
                     if (inventory.GetSlot(indexInventory).amount <= 0)
@@ -164,7 +163,7 @@ public class Equipment : MonoBehaviour
             if (!inventory.GetSlot(indexInventory).IsEmpty())
             {
                 Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
-                if (itemToSwap.GetItemType() == itemSwaped.GetItemType() && itemSwaped.maxStack > 1)
+                if (inventory.GetSlot(indexInventory).ID == currentEquipment[indexOutfit].ID && itemToSwap.maxStack > 1)
                 {
                     currentEquipment[indexOutfit].amount = inventory.GetSlot(indexInventory).AddAmount(currentEquipment[indexOutfit].amount);
                     if (currentEquipment[indexOutfit].amount <= 0)
