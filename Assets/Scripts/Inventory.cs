@@ -61,19 +61,17 @@ public class Inventory : MonoBehaviour
     private void Awake()
     {
         equipmentComponent = GetComponent<Equipment>();
-    }
-
-    void Start()
-    {
         for (int i = 0; i < size; i++)
         {
-            int index = GameplayManager.GetInstance().GetRandomItemID();
-            int amount = GameplayManager.GetInstance().GetRandomAmmountOfItem(index);
-            Slot newSlot = new Slot(index, amount);
+            Slot newSlot = new Slot();
             CurrentItems.Add(newSlot);
         }
     }
 
+    void Start()
+    {
+       
+    }
     public void SetNewInventory(List<Slot> newInventory)
     {
         CurrentItems.Clear();
@@ -181,6 +179,8 @@ public class Inventory : MonoBehaviour
         switch ((SortType)type)
         {
             case SortType.Type:
+                SortByName sortNameByType = new SortByName();
+                CurrentItems.Sort(sortNameByType);
                 SortByType sortType = new SortByType();
                 CurrentItems.Sort(sortType);
                 break;
@@ -189,6 +189,8 @@ public class Inventory : MonoBehaviour
                 CurrentItems.Sort(sortName);
                 break;
             case SortType.Level:
+                SortByName sortNameByLevel = new SortByName();
+                CurrentItems.Sort(sortNameByLevel);
                 SortByLevel sortLevel = new SortByLevel();
                 CurrentItems.Sort(sortLevel);
                 break;

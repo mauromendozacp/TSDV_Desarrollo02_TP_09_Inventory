@@ -16,7 +16,12 @@ public class UiItemSlot : MonoBehaviour
     public int GetID() => id;
     public int GetIndex() => indexList;
     public PlayerList GetPlayerList() => playerList;
-    
+
+    void Start()
+    {
+        inv.RefreshAllButtons += RefreshButton;
+    }
+
     public void SetButton(int indexList, int id)
     {
         if (playerList == PlayerList.None)
@@ -85,11 +90,6 @@ public class UiItemSlot : MonoBehaviour
             return;
 
         inv.MouseDown(btn);
-    }
-
-    private void Start()
-    {
-        inv.RefreshAllButtons += RefreshButton;
     }
 
     public void RefreshButton()

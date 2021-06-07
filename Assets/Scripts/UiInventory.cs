@@ -17,12 +17,15 @@ public class UiInventory : MonoBehaviour
     public Image toolTip;
     public Inventory inventory;
     public Equipment equipment;
+    public GameObject player;
 
     public Image slotAux;
     public RectTransform content;
     private GridLayoutGroup gridLayout;
 
     public bool secondParameter;
+    private float mouseCurrentPosX;
+    private float playerCurrentRotY;
 
     private void Awake()
     {
@@ -32,7 +35,7 @@ public class UiInventory : MonoBehaviour
 
     void Start()    //   Carrera de start con Inventory
     {
-        Invoke(nameof(IniciarInventarioUI), 1);       // ver como iniciar despues de la lógica de inventario.
+        Invoke(nameof(IniciarInventarioUI), 0);       // ver como iniciar despues de la lógica de inventario.
         
         for (int i = 0; i <= (int)Inventory.SortType.Level; i++)
         {
@@ -44,6 +47,7 @@ public class UiInventory : MonoBehaviour
     {
         CreateButtonsSlots();
         ResizeContent();
+        RefreshAllButtons?.Invoke();
     }
     void CreateButtonsSlots()
     {
@@ -232,5 +236,21 @@ public class UiInventory : MonoBehaviour
 
         inventory.Sort(sortBDrop.value);
         RefreshAllButtons?.Invoke();
+    }
+    
+    public void SetPositionX()
+    {
+        mouseCurrentPosX = Input.mousePosition.x;
+        playerCurrentRotY = player.transform.eulerAngles.y;
+    }
+
+    public void Rotate()
+    {
+        float auxPosX = mouseCurrentPosX - Input.mousePosition.x;
+
+        Vector3 auxEuler = player.transform.eulerAngles;
+        auxEuler.y = playerCurrentRotY + auxPosX;
+
+        player.transform.eulerAngles = auxEuler;
     }
 }

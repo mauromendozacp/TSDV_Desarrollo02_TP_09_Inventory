@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: d6e878a1f63e10d46ba9c449b0194f11
+guid: a40234732e52fa9439518ef4cf93ae0f
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4866121211153985403
-    second: inventory_window_0
-  - first:
-      213: -914006493166142889
-    second: PlayerWindow
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -127,49 +121,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: inventory_window_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1024
-        height: 1024
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5805c2f4a80187cb0800000000000000
-      internalID: -4866121211153985403
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: PlayerWindow
-      rect:
-        serializedVersion: 2
-        x: 341
-        y: 0
-        width: 342
-        height: 426
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 75a7e64efebc053f0800000000000000
-      internalID: -914006493166142889
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

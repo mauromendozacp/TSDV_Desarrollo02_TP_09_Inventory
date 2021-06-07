@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -28,6 +27,10 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        LoadJson();
+    }
     public int GetRandomItemID()
     {
         return Random.Range(0, allItems.List.Count);
@@ -106,5 +109,8 @@ public class GameplayManager : MonoBehaviour
         }
         player.SetSaveSlots(newList);
     }
-
+    void OnDestroy()
+    {
+        SaveJson();
+    }
 }

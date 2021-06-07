@@ -19,7 +19,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] List<Slot> currentEquipment = null;
     Inventory inventory;
 
-    private void Start()
+    private void Awake()
     {
         inventory = GetComponent<Inventory>();
         
