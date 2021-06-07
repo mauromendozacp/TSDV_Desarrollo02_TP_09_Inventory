@@ -74,6 +74,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    public void SetNewInventory(List<Slot> newInventory)
+    {
+        CurrentItems.Clear();
+        foreach (Slot slot in newInventory)
+        {
+            CurrentItems.Add(slot);
+        }
+    }
+
     public bool AddNewItem(int ID, int amount, int slotPos)
     {
         if (CurrentItems[slotPos].IsEmpty())

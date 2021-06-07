@@ -72,19 +72,39 @@ public class GameplayManager : MonoBehaviour
 
     public void LoadJson()
     {
+        string savedData;
         if (File.Exists(savePath))
         {
             FileStream fs;
             fs = File.Open(savePath, FileMode.Open);
             BinaryReader br = new BinaryReader(fs);
-            string savedData = br.ReadString();
+            savedData = br.ReadString();
             fs.Close();
             br.Close();
         }
         else
         {
             Debug.Log("file not found");
+            return;
         }
+        List<Slot> newList = new List<Slot>();
+        for (int i = 0; i < savedData.Length; i++)
+        {
+            if(savedData[i] == '{')
+            {
+                string slotString = "";
+                int aux = 0;
+                while(savedData[i + aux] != '}')
+                {
+                    slotString += savedData[i + aux];
+                    aux++;
+                }
+                slotString += '}';
+                Slot newSlot = JsonUtility.FromJson<Slot>(slotString);
+                newList.Add(newSlot);
+            }
+        }
+        player.SetSaveSlots(newList);
     }
 
 }

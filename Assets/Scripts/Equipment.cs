@@ -16,7 +16,7 @@ public class Equipment : MonoBehaviour
     }*/
 
     [SerializeField] int weaponSlotsAmount = 4;
-    [SerializeField] List<Slot> currentEquipment;
+    [SerializeField] List<Slot> currentEquipment = null;
     Inventory inventory;
 
     private void Start()
@@ -34,6 +34,20 @@ public class Equipment : MonoBehaviour
             Slot newSlot = new Slot();
             currentEquipment.Add(newSlot);
         }
+    }
+
+    public void SetNewEquipment(List<Slot> newEquipment)
+    {
+        currentEquipment.Clear();
+        foreach  (Slot slot in newEquipment)
+        {
+            currentEquipment.Add(slot);
+        }
+    }
+
+    public int GetEquipmentAmount()
+    {
+        return weaponSlotsAmount + (int)OutfitSlotPosition.Armor + 1;
     }
 
     // Rechequear Funcion

@@ -34,4 +34,22 @@ public class Player : MonoBehaviour
         return newList;
     }
 
+    public void SetSaveSlots(List<Slot> newList)
+    {
+        int equipmentTotalSlots = equipment.GetEquipmentAmount();
+
+        List<Slot> equipmentList = new List<Slot>();
+        for (int i = 0; i < equipmentTotalSlots; i++)
+        {
+            equipmentList.Add(newList[i]);
+        }
+        equipment.SetNewEquipment(equipmentList);
+
+        List<Slot> itemsList = new List<Slot>();
+        for (int i = equipmentTotalSlots; i < newList.Count; i++)
+        {
+            itemsList.Add(newList[i]);
+        }
+        inventory.SetNewInventory(itemsList);
+    }
 }
