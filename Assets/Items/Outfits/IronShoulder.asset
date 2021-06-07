@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: IronShoulder
   m_EditorClassIdentifier: 
   itemName: Iron Shoulder
-  icon: {fileID: 7263181891274304025, guid: e7330964e83f36b468d866c59f997e58, type: 3}
-  worldPrefab: {fileID: 0}
+  icon: {fileID: 21300000, guid: 5e943c00b486cf64aa21f5e44e4bf9d7, type: 3}
+  mesh: {fileID: -6253423444763615616, guid: f892f356130268547a12f861e200bfcd, type: 3}
   maxStack: 1
   level: 1
   weight: 35

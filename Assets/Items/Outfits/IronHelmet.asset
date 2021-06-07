@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: IronHelmet
   m_EditorClassIdentifier: 
   itemName: Iron Helmet
-  icon: {fileID: 7263181891274304025, guid: e7330964e83f36b468d866c59f997e58, type: 3}
-  worldPrefab: {fileID: 0}
+  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
+  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
   maxStack: 1
   level: 1
   weight: 30

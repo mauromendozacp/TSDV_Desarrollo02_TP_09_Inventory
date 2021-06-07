@@ -7,7 +7,7 @@ public abstract class Item : ScriptableObject
     [Header("Item General")]
     public string itemName;
     public Sprite icon;
-    public GameObject worldPrefab;
+    public Mesh mesh;
     public int maxStack = 1;
     public int level = 1;
     public float weight;

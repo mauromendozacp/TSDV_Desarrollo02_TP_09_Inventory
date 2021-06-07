@@ -127,7 +127,7 @@ public class Equipment : MonoBehaviour
             {
                 Item fromItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index1].ID);
                 Item toItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index2].ID);
-                if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1)
+                if (fromItem.GetItemType() == toItem.GetItemType() && fromItem.maxStack > 1 && toItem.maxStack > 1)
                 {
                     currentEquipment[index1].amount = currentEquipment[index2].AddAmount(currentEquipment[index2].amount);
                     if (currentEquipment[index1].amount <= 0)

@@ -10,15 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 108e58c2f4ea4ec4baef2c10777a486a, type: 3}
-  m_Name: WeaponFireSword
+  m_Name: WeaponWoodBow
   m_EditorClassIdentifier: 
-  itemName: Fire Sword
-  icon: {fileID: 2163036573998151787, guid: e7330964e83f36b468d866c59f997e58, type: 3}
-  worldPrefab: {fileID: 0}
+  itemName: Wood Bow
+  icon: {fileID: 21300000, guid: 383d54f53babbd94a94f28031aabb922, type: 3}
+  mesh: {fileID: -5842801292671215899, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
   maxStack: 1
   level: 1
   weight: 160
   price: 19
+  spawnPositionR:
+    pos: {x: 0.1103, y: -0.019, z: 0}
+    rot: {x: 0, y: 0, z: 180}
+  spawnPositionL:
+    pos: {x: -0.125, y: 0.016, z: 0}
+    rot: {x: 14, y: 4.993, z: -16.966}
   type: 0
   twoHanded: 0
   damage: 60

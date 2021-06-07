@@ -61,6 +61,8 @@ public class UiItemSlot : MonoBehaviour
                 gameObject.transform.GetChild(1).gameObject.SetActive(false);
             }
         }
+
+        Player.OnRefreshMeshAsStatic();
     }
 
     void Refresh(PlayerList playerlist)
