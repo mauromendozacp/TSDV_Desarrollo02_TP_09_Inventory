@@ -109,6 +109,20 @@ public class Equipment : MonoBehaviour
     {
         if (index1 < weaponSlotsAmount && index2 < weaponSlotsAmount)   // Ambas son armas
         {
+            if (!currentEquipment[index1].IsEmpty() && !currentEquipment[index2].IsEmpty())
+            {
+                Item fromItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index1].ID);
+                Item toItem = GameplayManager.GetInstance().GetItemFromID(currentEquipment[index2].ID);
+                if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1)
+                {
+                    currentEquipment[index1].amount = currentEquipment[index2].AddAmount(currentEquipment[index2].amount);
+                    if (currentEquipment[index1].amount <= 0)
+                    {
+                        currentEquipment[index1].EmptySlot();
+                    }
+                    return true;
+                }
+            }
             Slot temp = currentEquipment[index1];
             currentEquipment[index1] =  currentEquipment[index2];
             currentEquipment[index2] = temp;
@@ -128,6 +142,19 @@ public class Equipment : MonoBehaviour
             indexInventory = index1;
             indexOutfit = index2;
             itemToSwap = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
+            if (!currentEquipment[indexOutfit].IsEmpty())
+            {
+                Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(currentEquipment[indexOutfit].ID);
+                if (itemToSwap.GetItemType() == itemSwaped.GetItemType() && itemSwaped.maxStack > 1)
+                {
+                    inventory.GetSlot(indexInventory).amount = currentEquipment[indexOutfit].AddAmount(inventory.GetSlot(indexInventory).amount);
+                    if (inventory.GetSlot(indexInventory).amount <= 0)
+                    {
+                        inventory.GetSlot(indexInventory).EmptySlot();
+                    }
+                    return true;
+                }
+            }
         }
         else
         {
@@ -137,6 +164,15 @@ public class Equipment : MonoBehaviour
             if (!inventory.GetSlot(indexInventory).IsEmpty())
             {
                 Item itemSwaped = GameplayManager.GetInstance().GetItemFromID(inventory.GetSlot(indexInventory).ID);
+                if (itemToSwap.GetItemType() == itemSwaped.GetItemType() && itemSwaped.maxStack > 1)
+                {
+                    currentEquipment[indexOutfit].amount = inventory.GetSlot(indexInventory).AddAmount(currentEquipment[indexOutfit].amount);
+                    if (currentEquipment[indexOutfit].amount <= 0)
+                    {
+                        currentEquipment[indexOutfit].EmptySlot();
+                    }
+                    return true;
+                }
                 if (itemToSwap.GetItemType() != itemSwaped.GetItemType())
                 {
                     return false;

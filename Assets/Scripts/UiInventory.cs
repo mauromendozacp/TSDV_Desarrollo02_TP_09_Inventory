@@ -196,6 +196,7 @@ public class UiInventory : MonoBehaviour
             int slotid1 = slotPick.GetID();
             slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
             slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+            slotPick.RefreshButton();
         }
         else if ((slotPick.GetPlayerList() == UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() != UiItemSlot.PlayerList.Inventory)|| 
                  slotPick.GetPlayerList() != UiItemSlot.PlayerList.Inventory && slotDrop.GetPlayerList() == UiItemSlot.PlayerList.Inventory)
@@ -205,6 +206,8 @@ public class UiInventory : MonoBehaviour
                 int slotid1 = slotPick.GetID();
                 slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
                 slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+                slotPick.RefreshButton();
+                slotDrop.RefreshButton();
             }
         }
         else if(equipment.SwapItem(slotPick.GetIndex(), slotDrop.GetIndex()))
@@ -212,6 +215,8 @@ public class UiInventory : MonoBehaviour
             int slotid1 = slotPick.GetID();
             slotPick.SetButton(slotPick.GetIndex(), slotDrop.GetID());
             slotDrop.SetButton(slotDrop.GetIndex(), slotid1);
+            slotPick.RefreshButton();
+            slotDrop.RefreshButton();
         }
     }
 
