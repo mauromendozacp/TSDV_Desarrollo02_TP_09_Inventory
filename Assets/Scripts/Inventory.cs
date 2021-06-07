@@ -23,17 +23,16 @@ public class Slot
     {
         this.amount += amount;
         int maxAmount = GameplayManager.GetInstance().GetItemFromID(ID).maxStack;
-        if (amount > maxAmount)
+        if (this.amount > maxAmount)
         {
-            int difference = amount - maxAmount;
+            int difference = this.amount - maxAmount;
             this.amount = maxAmount;
             return difference;
         }
-        else if (amount <= 0)
+        else
         {
-            EmptySlot();
+            return 0;
         }
-        return 0;
     }
     public void FillSlot(int ID, int amount)
     {
@@ -118,13 +117,19 @@ public class Inventory : MonoBehaviour
 
     public void SwapItem(int slotPosFrom, int slotPosTo)
     {
+        if (slotPosFrom == slotPosTo) return;
         if (!CurrentItems[slotPosFrom].IsEmpty() && !CurrentItems[slotPosTo].IsEmpty())
         {
             Item fromItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosFrom].ID);
             Item toItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosTo].ID);
-            if (fromItem.GetItemType() == toItem.GetItemType())
+            if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1)
             {
-
+                CurrentItems[slotPosFrom].amount = CurrentItems[slotPosTo].AddAmount(CurrentItems[slotPosFrom].amount);
+                if (CurrentItems[slotPosFrom].amount <= 0)
+                {
+                    CurrentItems[slotPosFrom].EmptySlot();
+                }
+                return;
             }
         }
         Slot temp = new Slot(CurrentItems[slotPosFrom].ID, CurrentItems[slotPosFrom].amount);
@@ -132,7 +137,7 @@ public class Inventory : MonoBehaviour
         CurrentItems[slotPosTo] = temp;
     }
 
-    public void UseItem(int slotPos)    // Doble click
+    public void UseItem(int slotPos)    // Doble click o Click Derecho
     {
         if(GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
         {
