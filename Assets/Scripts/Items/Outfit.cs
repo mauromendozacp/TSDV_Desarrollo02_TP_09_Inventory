@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public enum OutfitSlotPosition { Helmet, Gloves, Boots, Shoulder, Armor };
 [CreateAssetMenu(fileName = "Outfit", menuName = "Items/Outfit")]

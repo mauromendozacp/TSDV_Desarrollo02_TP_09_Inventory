@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
