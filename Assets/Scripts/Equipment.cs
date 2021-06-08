@@ -90,7 +90,7 @@ public class Equipment : MonoBehaviour
         }
         else // if(itemToSwap.GetItemType() == ItemType.Arms)
         {
-            for (int i = 2; i < weaponSlotsAmount; i++) // cambiar
+            for (int i = 0; i < weaponSlotsAmount; i++) // cambiar
             {
                 if (currentEquipment[i].IsEmpty())
                 {

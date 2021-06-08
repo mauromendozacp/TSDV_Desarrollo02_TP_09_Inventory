@@ -96,6 +96,7 @@ public class UiItemSlot : MonoBehaviour
             {
                 inv.inventory.Divide(indexList);
                 inv.RefreshAllButtons();
+                Debug.Log("Divide Item Inventory.");
             }
         }
         else if (Input.GetKey(KeyCode.LeftControl) && Input.GetMouseButtonDown(1))
@@ -104,6 +105,7 @@ public class UiItemSlot : MonoBehaviour
             {
                 inv.inventory.DeleteItem(indexList);
                 Refresh(playerList);
+                Debug.Log("Delete Item Inventory.");
             }
         }
         else if (Input.GetMouseButton(0))
@@ -119,6 +121,7 @@ public class UiItemSlot : MonoBehaviour
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
+                        Debug.Log("Equip Item or Consumible Used.");
                     }
                     break;
                 case PlayerList.Outfit:
@@ -127,6 +130,7 @@ public class UiItemSlot : MonoBehaviour
                     {
                         inv.RefreshAllButtons();
                         inv.RefreshToolTip(btn);
+                        Debug.Log("Unequip");
                     }
                     break;
                 case PlayerList.None:

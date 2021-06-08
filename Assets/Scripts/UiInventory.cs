@@ -98,7 +98,7 @@ public class UiInventory : MonoBehaviour
 
     public void MouseDown(RectTransform btn)
     {
-        Debug.Log("Down.");
+        //Debug.Log("Down.");
         slotAux.transform.position = Input.mousePosition;
         slotAux.GetComponent<Image>().sprite = btn.GetComponent<Image>().sprite;
         slotAux.gameObject.SetActive(true);
@@ -189,7 +189,7 @@ public class UiInventory : MonoBehaviour
 
     public void MouseUp(RectTransform btn)
     {
-        Debug.Log("Up.", gameObject);
+        //Debug.Log("Up.", gameObject);
         slotAux.transform.position = Input.mousePosition;
         slotAux.gameObject.SetActive(false);
 
@@ -245,7 +245,7 @@ public class UiInventory : MonoBehaviour
 
     public void MouseDrag()
     {
-        Debug.Log("Arrastrando.");
+        //Debug.Log("Arrastrando.");
         slotAux.transform.position = Input.mousePosition;
     }
 
