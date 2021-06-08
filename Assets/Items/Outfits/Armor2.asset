@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Iron Armor
   icon: {fileID: 21300000, guid: bb5ef0d0cdff53944897f7e586e7afcf, type: 3}
-  mesh: {fileID: -7022962467294250467, guid: cbe44a9389f3e774b828a5ada3152934, type: 3}
+  mesh: {fileID: -4221278872864060035, guid: b841e0568d511ac4688b781873a09674, type: 3}
   maxStack: 1
   level: 1
   weight: 80

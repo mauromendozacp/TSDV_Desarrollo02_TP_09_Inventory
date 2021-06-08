@@ -153,7 +153,8 @@ MonoBehaviour:
       type: 3}
     gloves: {fileID: -3325911526169839444, guid: 6d195f666ebbd324d9821fc05e914322,
       type: 3}
-    boots: {fileID: 6044559441606390166, guid: 114110abb082040459c9d697a14ae903, type: 3}
+    boots: {fileID: -4391836623167854040, guid: a14c42058520ef64fa3b7d41d02646e5,
+      type: 3}
 --- !u!114 &16788564
 MonoBehaviour:
   m_ObjectHideFlags: 0

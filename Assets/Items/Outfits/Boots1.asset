@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Iron Boots
   icon: {fileID: 21300000, guid: db63460a2211b824a806643b4486e2fa, type: 3}
-  mesh: {fileID: 203686746993826941, guid: 7a4a18c30cba748469b603fe6f9425a9, type: 3}
+  mesh: {fileID: 6044559441606390166, guid: 114110abb082040459c9d697a14ae903, type: 3}
   maxStack: 1
   level: 1
   weight: 30

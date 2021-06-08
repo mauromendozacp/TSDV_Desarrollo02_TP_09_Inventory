@@ -123,6 +123,14 @@ public class UiItemSlot : MonoBehaviour
                         inv.RefreshToolTip(btn);
                         Debug.Log("Equip Item or Consumible Used.");
                     }
+                    else
+                    {
+                        Refresh(playerList);
+                        if (id < 0)
+                        {
+                            inv.toolTip.gameObject.SetActive(false);
+                        }
+                    }
                     break;
                 case PlayerList.Outfit:
                 case PlayerList.Arms:
