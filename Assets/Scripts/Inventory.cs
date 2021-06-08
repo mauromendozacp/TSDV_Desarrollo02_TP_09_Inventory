@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 
@@ -130,7 +131,7 @@ public class Inventory : MonoBehaviour
         {
             Item fromItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosFrom].ID);
             Item toItem = GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPosTo].ID);
-            if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1)
+            if (fromItem.GetItemType() == toItem.GetItemType() && toItem.maxStack > 1 && fromItem.maxStack > 1)
             {
                 CurrentItems[slotPosFrom].amount = CurrentItems[slotPosTo].AddAmount(CurrentItems[slotPosFrom].amount);
                 if (CurrentItems[slotPosFrom].amount <= 0)

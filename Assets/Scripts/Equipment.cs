@@ -101,7 +101,7 @@ public class Equipment : MonoBehaviour
             }
             Slot returnSlot = currentEquipment[0];
             currentEquipment[0] = newItemSlot;
-            return newItemSlot;
+            return returnSlot;
         }
     }
     public bool SwapItem(int index1, int index2)

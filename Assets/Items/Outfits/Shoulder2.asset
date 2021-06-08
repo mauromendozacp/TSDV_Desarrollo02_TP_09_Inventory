@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
-  m_Name: IronHelmet
+  m_Name: Shoulder2
   m_EditorClassIdentifier: 
-  itemName: Iron Helmet
-  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
-  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
+  itemName: Iron Shoulder
+  icon: {fileID: 21300000, guid: 5e943c00b486cf64aa21f5e44e4bf9d7, type: 3}
+  mesh: {fileID: -6253423444763615616, guid: f892f356130268547a12f861e200bfcd, type: 3}
   maxStack: 1
   level: 1
-  weight: 30
-  price: 60
-  type: 0
-  defense: 15
+  weight: 35
+  price: 165
+  type: 3
+  defense: 10

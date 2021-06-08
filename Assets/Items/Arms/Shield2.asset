@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc3fc56d1fc003c4e88086a49643a279, type: 3}
-  m_Name: ShieldOfGods
+  m_Name: Shield2
   m_EditorClassIdentifier: 
   itemName: Shield Of Gods
   icon: {fileID: 21300000, guid: cbcf483760c8b9c4a925f79dd8f28cb5, type: 3}

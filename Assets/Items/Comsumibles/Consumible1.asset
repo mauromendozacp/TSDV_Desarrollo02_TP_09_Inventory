@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 34c9ed03ad7d07849a6b09e6af5d6ca9, type: 3}
-  m_Name: Consumible
+  m_Name: Consumible1
   m_EditorClassIdentifier: 
-  itemName: Beer
-  icon: {fileID: 8599436577718238185, guid: e7330964e83f36b468d866c59f997e58, type: 3}
-  worldPrefab: {fileID: 0}
+  itemName: Mana
+  icon: {fileID: 21300000, guid: 93125ac9df95ec542bc533408addf1ee, type: 3}
+  mesh: {fileID: 0}
   maxStack: 100
   level: 1
   weight: 7
