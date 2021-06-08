@@ -12,6 +12,7 @@ public class UiItemSlot : MonoBehaviour
     [SerializeField] private PlayerList playerList = PlayerList.Inventory;
     [SerializeField] private int indexList;
     [SerializeField] private int id;
+    [SerializeField] private int idDefaultSprite;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
@@ -34,7 +35,12 @@ public class UiItemSlot : MonoBehaviour
 
         if (id < 0)
         {
-            transform.GetChild(0).GetComponent<Image>().sprite = inv.prefaButtonSlot.transform.GetChild(0).GetComponent<Image>().sprite;
+            if (playerList == PlayerList.Inventory)
+                transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[0];
+            else
+            {
+                transform.GetChild(0).GetComponent<Image>().sprite = inv.defaultSprites[idDefaultSprite];
+            }
             gameObject.transform.GetChild(1).gameObject.SetActive(false);
         }
         else

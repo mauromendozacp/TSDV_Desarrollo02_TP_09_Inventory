@@ -8,7 +8,7 @@ using Image = UnityEngine.UI.Image;
 public class UiInventory : MonoBehaviour
 {
     public Action RefreshAllButtonsEvent;
-
+    public Sprite[] defaultSprites;
     Inventory.SortType sortBy = Inventory.SortType.Type;
     private string[] nameSortBy = { "By Type", "By Name", "By Level" };
     public RectTransform sortBRect;
@@ -128,8 +128,8 @@ public class UiInventory : MonoBehaviour
         int lines = 0;
         int chars = 0;
         int maxChar = 0;
-        float offset = 51;
-        float margin = 10;
+        float offset = 58;
+        float margin = 30;
 
         for (int i = 0; i < text.Length; i++)
         {
