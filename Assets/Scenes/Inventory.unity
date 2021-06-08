@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44575858, g: 0.49003613, b: 0.5450212, a: 1}
+  m_IndirectSpecularColor: {r: 0.44575804, g: 0.49003524, b: 0.5450203, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1423,7 +1423,7 @@ GameObject:
   - component: {fileID: 1413231237}
   - component: {fileID: 1413231236}
   m_Layer: 0
-  m_Name: Plane
+  m_Name: Overlay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2235,7 +2235,7 @@ GameObject:
   - component: {fileID: 1651241439}
   - component: {fileID: 1651241438}
   m_Layer: 0
-  m_Name: Plane (1)
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2873,6 +2873,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 348888488}
     m_Modifications:
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: playerDefaultMesh.boots
+      value: 
+      objectReference: {fileID: 6044559441606390166, guid: 114110abb082040459c9d697a14ae903,
+        type: 3}
     - target: {fileID: 5867834726234589986, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_RootOrder
@@ -4407,8 +4412,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4312704909579426586}
   m_HandleRect: {fileID: 4312704909579426589}
   m_Direction: 2
-  m_Value: 0.9999997
-  m_Size: 0.81605285
+  m_Value: 0.99999934
+  m_Size: 0.81605273
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

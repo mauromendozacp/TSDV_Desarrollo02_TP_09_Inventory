@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
-  m_Name: Helmet2
+  m_Name: Dragoon Armor
   m_EditorClassIdentifier: 
-  itemName: Iron Helmet
-  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
-  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
+  itemName: Dragoon Armor
+  icon: {fileID: 21300000, guid: bb5ef0d0cdff53944897f7e586e7afcf, type: 3}
+  mesh: {fileID: -4221278872864060035, guid: b841e0568d511ac4688b781873a09674, type: 3}
   maxStack: 1
-  level: 1
-  weight: 30
-  price: 60
-  type: 0
-  defense: 15
+  level: 15
+  weight: 80
+  price: 500
+  type: 4
+  defense: 100

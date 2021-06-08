@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
-  m_Name: Armor2
+  m_Name: Iron Helmet
   m_EditorClassIdentifier: 
-  itemName: Iron Armor
-  icon: {fileID: 21300000, guid: bb5ef0d0cdff53944897f7e586e7afcf, type: 3}
-  mesh: {fileID: -4221278872864060035, guid: b841e0568d511ac4688b781873a09674, type: 3}
+  itemName: Iron Helmet
+  icon: {fileID: 21300000, guid: 0b4027049a30abd44a68242a45b03a46, type: 3}
+  mesh: {fileID: 4220246110180106564, guid: 31316a0a799802c45b478298fcd4ab26, type: 3}
   maxStack: 1
   level: 1
-  weight: 80
-  price: 205
-  type: 4
-  defense: 60
+  weight: 50
+  price: 100
+  type: 0
+  defense: 20

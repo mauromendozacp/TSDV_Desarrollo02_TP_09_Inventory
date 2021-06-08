@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 815b64200a9f4f7419801ffe6651defe, type: 3}
-  m_Name: Gloves1
+  m_Name: Dragoon Helmet
   m_EditorClassIdentifier: 
-  itemName: Iron Gloves
-  icon: {fileID: 21300000, guid: f9cc12299c6aaea4698e6a1cc96b2f76, type: 3}
-  mesh: {fileID: 8520837636797000617, guid: 2c4dfc4a05ef55344a78a8d69a3a9e24, type: 3}
+  itemName: Dragoon Helmet
+  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
+  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
   maxStack: 1
-  level: 1
-  weight: 50
-  price: 30
-  type: 1
-  defense: 20
+  level: 10
+  weight: 60
+  price: 400
+  type: 0
+  defense: 50
