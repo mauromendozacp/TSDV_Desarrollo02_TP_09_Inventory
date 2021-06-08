@@ -91,14 +91,8 @@ public class UiInventory : MonoBehaviour
         content.sizeDelta = new Vector2(content.sizeDelta.x, cantChild * cellSize / columns);
     }
 
-    void Update()
-    {
-        //ResizeContent();
-    }
-
     public void MouseDown(RectTransform btn)
     {
-        //Debug.Log("Down.");
         slotAux.transform.position = Input.mousePosition;
         slotAux.GetComponent<Image>().sprite = btn.GetComponent<Image>().sprite;
         slotAux.gameObject.SetActive(true);
@@ -112,8 +106,6 @@ public class UiInventory : MonoBehaviour
 
         toolTip.transform.position = new Vector3(btn.transform.position.x, btn.transform.position.y, btn.transform.position.z);
         int id = uiItem.GetID();
-
-        //Debug.Log("ID over: " + id);
 
         string text = TextFormatter(uiItem, id, uiItem.GetPlayerList());
         TextMeshProUGUI textMesh = toolTip.transform.GetChild(0).gameObject.GetComponent<TextMeshProUGUI>();
@@ -146,8 +138,6 @@ public class UiInventory : MonoBehaviour
             }
         }
         toolTip.rectTransform.sizeDelta = new Vector2(toolTip.rectTransform.sizeDelta.x, lines * offset + margin);
-
-        //Debug.Log("Count del For: " + lines);
     }
 
     string TextFormatter(UiItemSlot UiSlot, int idItem, UiItemSlot.PlayerList playerList)
@@ -189,7 +179,6 @@ public class UiInventory : MonoBehaviour
 
     public void MouseUp(RectTransform btn)
     {
-        //Debug.Log("Up.", gameObject);
         slotAux.transform.position = Input.mousePosition;
         slotAux.gameObject.SetActive(false);
 
@@ -245,7 +234,6 @@ public class UiInventory : MonoBehaviour
 
     public void MouseDrag()
     {
-        //Debug.Log("Arrastrando.");
         slotAux.transform.position = Input.mousePosition;
     }
 

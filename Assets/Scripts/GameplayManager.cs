@@ -87,7 +87,6 @@ public class GameplayManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("file not found");
             return;
         }
         List<Slot> newList = new List<Slot>();

@@ -115,10 +115,6 @@ public class Inventory : MonoBehaviour
                 CurrentItems[slotPos].amount /= 2;
             }
         }
-        else
-        {
-            Debug.Log("No puedo dividir");
-        }
     }
 
     public enum SortType { Type, Name, Level }
@@ -144,7 +140,6 @@ public class Inventory : MonoBehaviour
                 CurrentItems.Sort(sortLevel);
                 break;
             default:
-                Debug.Log("Wrong Sort int from button, can't Sort.");
                 break;
         }
     }
