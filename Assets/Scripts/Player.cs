@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,21 +33,26 @@ public class Player : MonoBehaviour
         Arms
     }
 
+    Vector3 direction;
+    float moveSpeed = 5;
+    float turnSpeed = 250;
+    private Coroutine _rotateCorroutine = null;
+
     private void Awake()
     {
-        equipment = GetComponent<Equipment>();
-        inventory = GetComponent<Inventory>();
+       // equipment = GetComponent<Equipment>();
+       // inventory = GetComponent<Inventory>();
     }
 
     private void Start()
     {
-        GameplayManager.GetInstance().SetPlayer(this);
-        OnRefreshMeshAsStatic += UpdateMesh;
+       // GameplayManager.GetInstance().SetPlayer(this);
+       // OnRefreshMeshAsStatic += UpdateMesh;
     }
 
     void OnDestroy()
     {
-        OnRefreshMeshAsStatic -= UpdateMesh;
+       // OnRefreshMeshAsStatic -= UpdateMesh;
     }
 
     public List<Slot> GetSaveSlots()
@@ -166,5 +172,54 @@ public class Player : MonoBehaviour
                     throw new ArgumentOutOfRangeException(nameof(part), part, null);
             }
         }
+    }
+
+    void SetMovement()
+    {
+        if (direction != GetDirection())
+        {
+            //StopAllCoroutines();
+            if (_rotateCorroutine != null)
+            { 
+                StopCoroutine(_rotateCorroutine);
+                _rotateCorroutine = null;
+            }
+           
+            _rotateCorroutine = StartCoroutine(Rotate());
+        }
+
+        direction = GetDirection();
+
+        transform.position += direction * moveSpeed * Time.deltaTime;
+    }
+
+    Vector3 GetDirection()
+    {
+        return new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+    }
+
+    bool IsMoving()
+    {
+        return Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f;
+    }
+
+    public IEnumerator Rotate()
+    {
+        Quaternion toRot = Quaternion.LookRotation(GetDirection(), Vector3.up);
+
+        while (transform.rotation != toRot)
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRot, turnSpeed * Time.deltaTime);
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        yield return null;
+    }
+
+    void Update()
+    {
+        if (IsMoving())
+            SetMovement();
     }
 }
