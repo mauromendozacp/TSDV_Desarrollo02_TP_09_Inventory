@@ -11,7 +11,7 @@ public class PlayerMesh
     public Mesh boots;
 }
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     [SerializeField] private GameObject[] playerMesh = new GameObject[7];
     [SerializeField] private GameObject hairMesh;
@@ -32,11 +32,6 @@ public class Player : MonoBehaviour
         Boots,
         Arms
     }
-
-    Vector3 direction;
-    float moveSpeed = 5;
-    float turnSpeed = 250;
-    private Coroutine _rotateCorroutine = null;
 
     private void Awake()
     {
@@ -174,52 +169,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    void SetMovement()
-    {
-        if (direction != GetDirection())
-        {
-            //StopAllCoroutines();
-            if (_rotateCorroutine != null)
-            { 
-                StopCoroutine(_rotateCorroutine);
-                _rotateCorroutine = null;
-            }
-           
-            _rotateCorroutine = StartCoroutine(Rotate());
-        }
-
-        direction = GetDirection();
-
-        transform.position += direction * moveSpeed * Time.deltaTime;
-    }
-
-    Vector3 GetDirection()
-    {
-        return new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-    }
-
     bool IsMoving()
     {
         return Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f;
     }
 
-    public IEnumerator Rotate()
-    {
-        Quaternion toRot = Quaternion.LookRotation(GetDirection(), Vector3.up);
-
-        while (transform.rotation != toRot)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, toRot, turnSpeed * Time.deltaTime);
-
-            yield return new WaitForEndOfFrame();
-        }
-
-        yield return null;
-    }
-
     void Update()
     {
         if (IsMoving())
-            SetMovement();
+        {
+            SetMovement(direction);
+            direction = GetDirection();
+        }
     }
 }
