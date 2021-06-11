@@ -19,6 +19,7 @@ public class Player : Character
 
     Equipment equipment;
     Inventory inventory;
+    Animator anim;
 
     public delegate void RefreshMesh();
     public static RefreshMesh OnRefreshMeshAsStatic;
@@ -35,8 +36,9 @@ public class Player : Character
 
     private void Awake()
     {
-       // equipment = GetComponent<Equipment>();
-       // inventory = GetComponent<Inventory>();
+        // equipment = GetComponent<Equipment>();
+        // inventory = GetComponent<Inventory>();
+        anim = GetComponent<Animator>();
     }
 
     private void Start()
@@ -174,12 +176,32 @@ public class Player : Character
         return Mathf.Abs(Input.GetAxis("Horizontal")) > 0f || Mathf.Abs(Input.GetAxis("Vertical")) > 0f;
     }
 
+    void UpdateMoveAnimation()
+    {
+        float speed = (Mathf.Abs(Input.GetAxis("Horizontal")) + Mathf.Abs(Input.GetAxis("Vertical")));
+        anim.SetFloat("Speed", speed);
+    }
+
+    void PickUp()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            anim.SetTrigger("PickUp");
+        }
+    }
+
     void Update()
     {
-        if (IsMoving())
+        if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp"))
         {
             SetMovement(direction);
             direction = GetDirection();
+            UpdateMoveAnimation();
         }
+        else
+        {
+            anim.SetFloat("Speed", 0f);
+        }
+        PickUp();
     }
 }
