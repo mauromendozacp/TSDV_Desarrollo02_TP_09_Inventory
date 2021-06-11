@@ -36,20 +36,20 @@ public class Player : Character
 
     private void Awake()
     {
-        // equipment = GetComponent<Equipment>();
-        // inventory = GetComponent<Inventory>();
+        //equipment = GetComponent<Equipment>();
+        //inventory = GetComponent<Inventory>();
         anim = GetComponent<Animator>();
     }
 
     private void Start()
     {
-       // GameplayManager.GetInstance().SetPlayer(this);
-       // OnRefreshMeshAsStatic += UpdateMesh;
+       //GameplayManager.GetInstance().SetPlayer(this);
+        //OnRefreshMeshAsStatic += UpdateMesh;
     }
 
     void OnDestroy()
     {
-       // OnRefreshMeshAsStatic -= UpdateMesh;
+       //OnRefreshMeshAsStatic -= UpdateMesh;
     }
 
     public List<Slot> GetSaveSlots()
