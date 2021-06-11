@@ -5,8 +5,8 @@ using UnityEngine;
 public class Character : MonoBehaviour
 {
     public Vector3 direction = Vector3.zero;
-    float moveSpeed = 5;
-    float turnSpeed = 250;
+    public float moveSpeed = 5;
+    public float turnSpeed = 250;
     private Coroutine _rotateCorroutine = null;
 
     public IEnumerator Rotate()
@@ -28,9 +28,9 @@ public class Character : MonoBehaviour
         return new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
     }
 
-    public void SetMovement(Vector3 dir)
+    public void SetMovement(Vector3 dir, Vector3 newDir)
     {
-        if (dir != GetDirection())
+        if (dir != newDir)
         {
             //StopAllCoroutines();
             if (_rotateCorroutine != null)
@@ -42,6 +42,6 @@ public class Character : MonoBehaviour
             _rotateCorroutine = StartCoroutine(Rotate());
         }
 
-        transform.position += GetDirection() * moveSpeed * Time.deltaTime;
+        transform.position += newDir * moveSpeed * Time.deltaTime;
     }
 }

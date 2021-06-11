@@ -178,7 +178,7 @@ public class Player : Character
     {
         if (IsMoving())
         {
-            SetMovement(direction);
+            SetMovement(direction, GetDirection());
             direction = GetDirection();
         }
     }
