@@ -10,9 +10,7 @@ public class Enemy : Character
     Vector3 targetPos;
 
     float stateTimer;
-    float minDistanceFromPlayer = 5f;
-
-    
+    float minDistanceFromPlayer = 5f;    
 
     public enum State
     {
@@ -28,7 +26,7 @@ public class Enemy : Character
         actualState = State.Idle;
         stateTimer = Random.Range(1, 4);
 
-        moveSpeed = 2;
+       moveSpeed = 4;
     }
 
     void Update()
@@ -51,7 +49,7 @@ public class Enemy : Character
 
     bool IsPlayerClose()
     {
-        return Vector3.Distance(transform.position, player.position) > minDistanceFromPlayer;
+        return Vector3.Distance(transform.position, player.position) < minDistanceFromPlayer;
     }
 
     void SetIdle()
@@ -84,12 +82,17 @@ public class Enemy : Character
     {
         if (IsCloseToMinimunPos())
         {
-            actualState = State.Walking;
+            actualState = State.Idle;
             stateTimer = Random.Range(2, 5);
         }
         else
         {
             SetMovement(transform.forward, direction);
+        }
+
+        if (IsPlayerClose())
+        {
+            actualState = State.FollowingPlayer;
         }
     }
 

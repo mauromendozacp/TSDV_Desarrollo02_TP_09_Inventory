@@ -47,13 +47,13 @@ public class Player : Character
 
     private void Start()
     {
-       GameplayManager.GetInstance().SetPlayer(this);
-       OnRefreshMeshAsStatic += UpdateMesh;
+       // GameplayManager.GetInstance().SetPlayer(this);
+       // OnRefreshMeshAsStatic += UpdateMesh;
     }
 
     void OnDestroy()
     {
-       OnRefreshMeshAsStatic -= UpdateMesh;
+       // OnRefreshMeshAsStatic -= UpdateMesh;
     }
 
     public List<Slot> GetSaveSlots()

@@ -9,9 +9,9 @@ public class Character : MonoBehaviour
     public float turnSpeed = 250;
     private Coroutine _rotateCorroutine = null;
 
-    public IEnumerator Rotate()
+    public IEnumerator Rotate(Vector3 newDir)
     {
-        Quaternion toRot = Quaternion.LookRotation(GetDirection(), Vector3.up);
+        Quaternion toRot = Quaternion.LookRotation(newDir, Vector3.up);
 
         while (transform.rotation != toRot)
         {
@@ -39,7 +39,7 @@ public class Character : MonoBehaviour
                 _rotateCorroutine = null;
             }
 
-            _rotateCorroutine = StartCoroutine(Rotate());
+            _rotateCorroutine = StartCoroutine(Rotate(newDir));
         }
 
         transform.position += newDir * moveSpeed * Time.deltaTime;
