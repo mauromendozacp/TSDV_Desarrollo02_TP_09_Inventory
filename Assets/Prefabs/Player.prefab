@@ -3276,6 +3276,15 @@ MonoBehaviour:
   - {fileID: 4863058896048742866}
   - {fileID: 4930256407531418354}
   - {fileID: 1116140122}
+  playerUIMesh:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   playerDefaultMesh:
     hair: {fileID: 8794139839884401192, guid: 0d69203beeaca0c4092df59fc436678c, type: 3}
     armor: {fileID: -4917768361460942333, guid: b60f708b43fd671458659ed7aaba349c,
@@ -3285,7 +3294,10 @@ MonoBehaviour:
     boots: {fileID: -4391836623167854040, guid: a14c42058520ef64fa3b7d41d02646e5,
       type: 3}
   inventoryPanel: {fileID: 0}
-  playerUI: {fileID: 0}
+  itemMask:
+    serializedVersion: 2
+    m_Bits: 0
+  uiInventory: {fileID: 0}
 --- !u!114 &16788564
 MonoBehaviour:
   m_ObjectHideFlags: 0

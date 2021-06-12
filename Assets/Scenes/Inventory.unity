@@ -2174,6 +2174,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 2052185046}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1167508885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1167508884}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.6, y: 1, z: 3.36}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1167508887 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 16788565, guid: 5b88898757134eb4a9253c1357ea6549,
@@ -4576,6 +4589,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4312704907960722789}
     - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: itemMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
       propertyPath: playerDefaultMesh.boots
       value: 
       objectReference: {fileID: 6044559441606390166, guid: 114110abb082040459c9d697a14ae903,
@@ -4682,20 +4699,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6667635886852287726, guid: 5b88898757134eb4a9253c1357ea6549,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7269536001724329680, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_UseGravity
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7269536001724329680, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_Constraints
-      value: 0
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 9064373463868623024, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
@@ -6348,7 +6360,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4312704909579426586}
   m_HandleRect: {fileID: 4312704909579426589}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 1.0000004
   m_Size: 0.81605285
   m_NumberOfSteps: 0
   m_OnValueChanged:
