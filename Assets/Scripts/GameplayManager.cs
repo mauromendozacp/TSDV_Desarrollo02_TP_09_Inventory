@@ -46,6 +46,15 @@ public class GameplayManager : MonoBehaviour
         return allItems.List[id];
     }
 
+    public void GenerateItemInWorldSpace(int itemID, int randomAmount, GameObject prefab, Vector3 SpawnPosition)
+    {
+        prefab.GetComponent<MeshFilter>().mesh = GameplayManager.GetInstance().GetItemFromID(itemID).mesh;
+        prefab.GetComponent<MeshCollider>().sharedMesh = GameplayManager.GetInstance().GetItemFromID(itemID).mesh;
+        prefab.GetComponent<ItemData>().itemID = itemID;
+        prefab.GetComponent<ItemData>().itemAmount = randomAmount;
+        Instantiate(prefab, SpawnPosition, Quaternion.identity);
+    }
+
     public void SetPlayer(Player p)
     {
         player = p;

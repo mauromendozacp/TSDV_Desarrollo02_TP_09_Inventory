@@ -18,6 +18,8 @@ public class Player : Character
     [SerializeField] private GameObject[] playerUIMesh = new GameObject[8];
     [SerializeField] private PlayerMesh playerDefaultMesh;
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] LayerMask itemMask;
+    [SerializeField] UiInventory uiInventory;
 
     public enum PlayerPart
     {
@@ -236,5 +238,25 @@ public class Player : Character
                     throw new ArgumentOutOfRangeException(nameof(part), part, null);
             }
         }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(Contains(itemMask, other.gameObject.layer))
+            {
+                int _id = other.gameObject.GetComponent<ItemData>().itemID;
+                int _amount = other.gameObject.GetComponent<ItemData>().itemAmount;
+                inventory.AddNewItem(_id, _amount);
+                uiInventory.RefreshAllButtons();
+                Destroy(other.gameObject);
+            }
+        }
+    }
+
+    bool Contains(LayerMask mask, int layer)
+    {
+        return mask == (mask | (1 << layer));
     }
 }
