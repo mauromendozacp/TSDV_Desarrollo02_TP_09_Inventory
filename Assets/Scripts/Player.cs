@@ -242,10 +242,8 @@ public class Player : Character
 
     private void OnTriggerStay(Collider other)
     {
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if(Contains(itemMask, other.gameObject.layer))
-            {
+        if(Contains(itemMask, other.gameObject.layer)){
+            if(Input.GetKeyDown(KeyCode.E)){
                 int _id = other.gameObject.GetComponent<ItemData>().itemID;
                 int _amount = other.gameObject.GetComponent<ItemData>().itemAmount;
                 inventory.AddNewItem(_id, _amount);
