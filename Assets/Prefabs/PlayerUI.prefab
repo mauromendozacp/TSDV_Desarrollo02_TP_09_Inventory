@@ -3199,13 +3199,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5867834726234589986}
   - component: {fileID: 4414040210566973235}
-  - component: {fileID: 16788563}
-  - component: {fileID: 16788564}
-  - component: {fileID: 16788565}
-  - component: {fileID: 7269536001724329680}
-  - component: {fileID: 6667635886852287726}
+  - component: {fileID: 6257184347323857595}
   m_Layer: 8
-  m_Name: Player
+  m_Name: PlayerUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3220,7 +3216,7 @@ Transform:
   m_GameObject: {fileID: 9064373463868623024}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.21647, y: 0.21647, z: 0.21647}
   m_Children:
   - {fileID: 3447155811790440650}
   - {fileID: 809698258441864635}
@@ -3252,69 +3248,7 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &16788563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064373463868623024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37fd5960629afff4fa6f37819a7df66f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0, z: 0}
-  moveSpeed: 5
-  turnSpeed: 250
-  playerMesh:
-  - {fileID: 7711135597788160466}
-  - {fileID: 7369864650226934679}
-  - {fileID: 5417286503983933286}
-  - {fileID: -6015429345306319653}
-  - {fileID: 4643245122208692952}
-  - {fileID: 4863058896048742866}
-  - {fileID: 4930256407531418354}
-  - {fileID: 1116140122}
-  playerDefaultMesh:
-    hair: {fileID: 8794139839884401192, guid: 0d69203beeaca0c4092df59fc436678c, type: 3}
-    armor: {fileID: -4917768361460942333, guid: b60f708b43fd671458659ed7aaba349c,
-      type: 3}
-    gloves: {fileID: -3325911526169839444, guid: 6d195f666ebbd324d9821fc05e914322,
-      type: 3}
-    boots: {fileID: -4391836623167854040, guid: a14c42058520ef64fa3b7d41d02646e5,
-      type: 3}
-  inventoryPanel: {fileID: 0}
-  playerUI: {fileID: 0}
---- !u!114 &16788564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064373463868623024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d1d25476ba80ad4c83d5066b5222af1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CurrentItems: []
-  size: 12
---- !u!114 &16788565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064373463868623024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f30f830ed5333b479b596e54eceb485, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  weaponSlotsAmount: 4
-  currentEquipment: []
---- !u!54 &7269536001724329680
+--- !u!54 &6257184347323857595
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3330,17 +3264,3 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!136 &6667635886852287726
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064373463868623024}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 1, z: 0}
