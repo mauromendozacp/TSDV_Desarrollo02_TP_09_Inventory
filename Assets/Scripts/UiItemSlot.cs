@@ -11,6 +11,7 @@ public class UiItemSlot : MonoBehaviour
     [SerializeField] private int indexList;
     [SerializeField] private int id;
     [SerializeField] private int idDefaultSprite;
+    [SerializeField] Player playerReference;
 
     public int GetID() => id;
     public int GetIndex() => indexList;
@@ -87,6 +88,7 @@ public class UiItemSlot : MonoBehaviour
     private void Awake()
     {
         inv = FindObjectOfType<UiInventory>();
+        playerReference = FindObjectOfType<Player>();
     }
 
     public void MouseDown(RectTransform btn)
@@ -106,6 +108,8 @@ public class UiItemSlot : MonoBehaviour
         {
             if (playerList == PlayerList.Inventory)
             {
+                Vector3 temporalItemPosition = playerReference.transform.position + playerReference.transform.forward * 2.5f;
+                GameplayManager.GetInstance().GenerateItemInWorldSpace(inv.inventory.GetID(indexList), inv.inventory.GetSlot(indexList).amount, temporalItemPosition);
                 inv.inventory.DeleteItem(indexList);
                 Refresh(playerList);
             }

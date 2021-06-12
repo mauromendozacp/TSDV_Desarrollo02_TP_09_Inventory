@@ -5,7 +5,6 @@ using UnityEngine;
 public class ItemSpawn : MonoBehaviour
 {
     GameObject enemy;
-    [SerializeField] GameObject itemPrefab;
 
     void Start()
     {
@@ -22,6 +21,6 @@ public class ItemSpawn : MonoBehaviour
     {
         int randomID = GameplayManager.GetInstance().GetRandomItemID();
         int randomAmount = GameplayManager.GetInstance().GetRandomAmmountOfItem(randomID);
-        GameplayManager.GetInstance().GenerateItemInWorldSpace(randomID, randomAmount, itemPrefab, enemy.transform.position);
+        GameplayManager.GetInstance().GenerateItemInWorldSpace(randomID, randomAmount, enemy.transform.position);
     }
 }
