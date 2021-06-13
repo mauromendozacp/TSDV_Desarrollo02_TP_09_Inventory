@@ -9,6 +9,7 @@ public class GameplayManager : MonoBehaviour
 
     Player player;
     [SerializeField] GameObject itemPrefab;
+    private const float itemArmScale = 0.008f;
 
     static private GameplayManager instance;
 
@@ -49,11 +50,16 @@ public class GameplayManager : MonoBehaviour
 
     public void GenerateItemInWorldSpace(int itemID, int randomAmount, Vector3 SpawnPosition)
     {
-        itemPrefab.GetComponent<MeshFilter>().mesh = GameplayManager.GetInstance().GetItemFromID(itemID).mesh;
-        itemPrefab.GetComponent<MeshCollider>().sharedMesh = GameplayManager.GetInstance().GetItemFromID(itemID).mesh;
-        itemPrefab.GetComponent<ItemData>().itemID = itemID;
-        itemPrefab.GetComponent<ItemData>().itemAmount = randomAmount;
-        Instantiate(itemPrefab, SpawnPosition, Quaternion.identity);
+        GameObject item = Instantiate(itemPrefab, SpawnPosition, Quaternion.identity);
+        item.GetComponent<MeshFilter>().mesh = GetInstance().GetItemFromID(itemID).mesh;
+        item.GetComponent<MeshCollider>().sharedMesh = GetInstance().GetItemFromID(itemID).mesh;
+        item.GetComponent<ItemData>().itemID = itemID;
+        item.GetComponent<ItemData>().itemAmount = randomAmount;
+
+        if (GetItemFromID(itemID).GetItemType() == ItemType.Arms)
+        {
+            item.transform.localScale *= itemArmScale;
+        }
     }
 
     public void SetPlayer(Player p)
