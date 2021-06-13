@@ -38,7 +38,8 @@ public class Player : Character
     public delegate void RefreshMesh();
     public static RefreshMesh OnRefreshMeshAsStatic;
 
-    
+    private bool movementAllowed = true;
+
     private void Awake()
     {
         equipment = GetComponent<Equipment>();
@@ -119,16 +120,24 @@ public class Player : Character
             {
                 inventoryPanel.SetActive(true);
                 UpdatePlayerUi();
+                anim.SetFloat("Speed", 0.0f);
             }
             else
             {
                 inventoryPanel.SetActive(false);
             }
+
+            movementAllowed = !inventoryPanel.activeSelf;
         }
     }
 
     void Update()
     {
+        OpenInventory();
+
+        if (!movementAllowed)
+            return;
+
         if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp"))
         {
             SetMovement(direction, GetDirection());
@@ -140,7 +149,7 @@ public class Player : Character
             anim.SetFloat("Speed", 0f);
         }
         PickUp();
-        OpenInventory();
+        
     }
 
     public void UpdateMesh()
