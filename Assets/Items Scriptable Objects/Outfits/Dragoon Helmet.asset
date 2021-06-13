@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Dragoon Helmet
   m_EditorClassIdentifier: 
   itemName: Dragoon Helmet
-  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
-  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
-  maxStack: 1
   level: 10
   weight: 60
   price: 400
+  maxStack: 1
+  icon: {fileID: 21300000, guid: a731cb28c82e35e4d9a453eac901278d, type: 3}
+  mesh: {fileID: 3849831138069335431, guid: 6433d3eee253ea644b5b039775a60691, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 7672829773773617059, guid: 36380763b58f77f48baac33edef3ee9a,
+    type: 3}
   type: 0
   defense: 50

@@ -1,14 +1,14 @@
 ﻿using UnityEngine;
 
-[CreateAssetMenu(fileName = "Consumible", menuName = "Items/Consumible")]
+[CreateAssetMenu(fileName = "Consumable", menuName = "Items/Consumable")]
 public class Consumible : Item
 {
-    public override ItemType GetItemType() { return ItemType.Consumible; }
+    public override ItemType GetItemType() { return ItemType.Consumable; }
 
     public override string ItemToString()
     {
         string text = base.ItemToString();
-        text += "\nType: Consumible";
+        text += "\nType: Consumable";
         return text;
     }
 }

@@ -13,12 +13,15 @@ MonoBehaviour:
   m_Name: Wooden Bow
   m_EditorClassIdentifier: 
   itemName: Wooden Bow
-  icon: {fileID: 21300000, guid: 383d54f53babbd94a94f28031aabb922, type: 3}
-  mesh: {fileID: -5842801292671215899, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
-  maxStack: 1
   level: 1
   weight: 50
   price: 50
+  maxStack: 1
+  icon: {fileID: 21300000, guid: 383d54f53babbd94a94f28031aabb922, type: 3}
+  mesh: {fileID: -5842801292671215899, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 9167329474426544759, guid: 8e11257df1efd3e40afa7e85d9f258de,
+    type: 3}
   spawnPositionR:
     pos: {x: 0.1103, y: -0.019, z: 0}
     rot: {x: 0, y: 0, z: 180}

@@ -13,11 +13,14 @@ MonoBehaviour:
   m_Name: Dragoon Gloves
   m_EditorClassIdentifier: 
   itemName: Dragoon Gloves
-  icon: {fileID: 21300000, guid: 80bf5a6f3474fbc49902bff7eaa5dfe9, type: 3}
-  mesh: {fileID: 5898543014520968602, guid: 3f32a95a6e9c1ee43aa08b5a93a91ef7, type: 3}
-  maxStack: 1
   level: 12
   weight: 100
   price: 250
+  maxStack: 1
+  icon: {fileID: 21300000, guid: 80bf5a6f3474fbc49902bff7eaa5dfe9, type: 3}
+  mesh: {fileID: 5898543014520968602, guid: 3f32a95a6e9c1ee43aa08b5a93a91ef7, type: 3}
+  material: {fileID: 2100000, guid: 79f5fd36b579b3442b77e35547e7f869, type: 2}
+  particle: {fileID: 7672829773773617059, guid: 36380763b58f77f48baac33edef3ee9a,
+    type: 3}
   type: 1
   defense: 30

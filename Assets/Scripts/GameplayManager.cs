@@ -9,7 +9,7 @@ public class GameplayManager : MonoBehaviour
 
     Player player;
     [SerializeField] GameObject itemPrefab;
-    private const float itemArmScale = 0.008f;
+    private const float itemArmScale = 0.018f;
 
     static private GameplayManager instance;
 
@@ -19,7 +19,7 @@ public class GameplayManager : MonoBehaviour
 
     private void Awake()
     {
-        if(!instance)
+        if (!instance)
         {
             instance = this;
         }
@@ -31,9 +31,8 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        LoadJson();        
+        LoadJson();
     }
-
     public int GetRandomItemID()
     {
         return Random.Range(0, allItems.List.Count);
@@ -56,6 +55,8 @@ public class GameplayManager : MonoBehaviour
         item.GetComponent<MeshCollider>().sharedMesh = GetInstance().GetItemFromID(itemID).mesh;
         item.GetComponent<ItemData>().itemID = itemID;
         item.GetComponent<ItemData>().itemAmount = randomAmount;
+        item.GetComponent<MeshRenderer>().material = GetItemFromID(itemID).material;
+        Instantiate(GetItemFromID(itemID).particle, item.transform);
 
         if (GetItemFromID(itemID).GetItemType() == ItemType.Arms)
         {
@@ -83,7 +84,7 @@ public class GameplayManager : MonoBehaviour
             fs = File.Create(savePath);
         else
             fs = File.Open(savePath, FileMode.Truncate);
-   
+
         BinaryWriter bw = new BinaryWriter(fs);
         bw.Write(json);
         fs.Close();
@@ -109,11 +110,11 @@ public class GameplayManager : MonoBehaviour
         List<Slot> newList = new List<Slot>();
         for (int i = 0; i < savedData.Length; i++)
         {
-            if(savedData[i] == '{')
+            if (savedData[i] == '{')
             {
                 string slotString = "";
                 int aux = 0;
-                while(savedData[i + aux] != '}')
+                while (savedData[i + aux] != '}')
                 {
                     slotString += savedData[i + aux];
                     aux++;

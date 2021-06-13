@@ -91,7 +91,7 @@ public class Inventory : MonoBehaviour
 
     public bool UseItem(int slotPos)    // Doble click o Click Derecho
     {
-        if (GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumible)
+        if (GameplayManager.GetInstance().GetItemFromID(CurrentItems[slotPos].ID).GetItemType() == ItemType.Consumable)
         {
             CurrentItems[slotPos].AddAmount(-1);
             if (CurrentItems[slotPos].IsEmpty())
