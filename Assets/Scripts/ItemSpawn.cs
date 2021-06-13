@@ -9,13 +9,12 @@ public class ItemSpawn : MonoBehaviour
     void Start()
     {
         enemy = this.gameObject;
-        GenerateNewItem();
     }
 
-    //void OnDestroy()
-    //{
-    //    GenerateNewItem();
-    //}
+    void OnDestroy()
+    {
+        GenerateNewItem();
+    }
 
     public void GenerateNewItem()
     {

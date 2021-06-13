@@ -19,6 +19,7 @@ public class Player : Character
     [SerializeField] private PlayerMesh playerDefaultMesh;
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] LayerMask itemMask;
+    [SerializeField] LayerMask enemyMask;
     [SerializeField] UiInventory uiInventory;
 
     public enum PlayerPart
@@ -153,6 +154,21 @@ public class Player : Character
         m_GroundCheckDistance = rb.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
     }
 
+    void SetAttack()
+    {
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+        bool attacking = stateInfo.IsName("Attack");
+        if(Input.GetKeyDown(KeyCode.Mouse0) && !attacking)
+        {
+            anim.SetTrigger("Attack");
+            Collider[] hitColliders = Physics.OverlapSphere((transform.position + new Vector3(0f, 2.5f, 0f)) + transform.forward * 1.5f, 1.5f, enemyMask);
+            foreach(Collider hitColider in hitColliders)
+            {
+                Destroy(hitColider.gameObject);
+            }
+        }
+    }
+
     void SetJump()
     {
         rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
@@ -163,11 +179,12 @@ public class Player : Character
     void Update()
     {
         OpenInventory();
+        SetAttack();
 
         if (!movementAllowed)
             return;
 
-        if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp"))
+        if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
         {
             SetMovement(direction, GetDirection());
             direction = GetDirection();
