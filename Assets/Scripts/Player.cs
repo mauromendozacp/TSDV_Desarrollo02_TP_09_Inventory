@@ -47,6 +47,11 @@ public class Player : Character
     private float m_GravityMultiplier = 1.5f;
     private float jumpSpeed = 15f;
 
+    public delegate void OnDieDelegate();
+    public OnDieDelegate onDie;
+
+    [SerializeField] int lives = 5;
+
     private void Awake()
     {
         equipment = GetComponent<Equipment>();
@@ -61,11 +66,23 @@ public class Player : Character
     {
        GameplayManager.GetInstance().SetPlayer(this);
        OnRefreshMeshAsStatic += UpdateMesh;
+
+       UpdateMesh();    
     }
 
     void OnDestroy()
     {
        OnRefreshMeshAsStatic -= UpdateMesh;
+    }
+
+    public void AddDamage()
+    {
+        lives--;
+
+        if (lives == 0)
+        {
+            onDie?.Invoke();
+        }
     }
 
     public List<Slot> GetSaveSlots()
@@ -164,8 +181,9 @@ public class Player : Character
             Collider[] hitColliders = Physics.OverlapSphere((transform.position + new Vector3(0f, 2.5f, 0f)) + transform.forward * 1.5f, 1.5f, enemyMask);
             foreach(Collider hitColider in hitColliders)
             {
-                Destroy(hitColider.gameObject);
                 hitColider.transform.GetComponent<ItemSpawn>().GenerateNewItem();
+                Destroy(hitColider.gameObject);
+                
             }
         }
     }
@@ -226,9 +244,17 @@ public class Player : Character
     {
         if (inventoryPanel.activeSelf)
         {
-            for (int i = 0; i < playerMesh.Length - 2; i++)
+            for (int i = 0; i < playerMesh.Length; i++)
             {
-                playerUIMesh[i].GetComponent<SkinnedMeshRenderer>().sharedMesh = playerMesh[i].GetComponent<SkinnedMeshRenderer>().sharedMesh;
+                if (i < 6)
+                {
+                    playerUIMesh[i].GetComponent<SkinnedMeshRenderer>().sharedMesh = playerMesh[i].GetComponent<SkinnedMeshRenderer>().sharedMesh;
+                }
+                else
+                {
+                    playerUIMesh[i].GetComponent<MeshFilter>().mesh = playerMesh[i].GetComponent<MeshFilter>().mesh;
+                }
+
                 playerUIMesh[i].transform.localPosition = playerMesh[i].transform.localPosition;
                 playerUIMesh[i].transform.localEulerAngles = playerMesh[i].transform.localEulerAngles;
             }

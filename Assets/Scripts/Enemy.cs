@@ -12,12 +12,14 @@ public class Enemy : Character
     Vector3 targetPos;
 
     float stateTimer;
-    float minDistanceFromPlayer = 8f;
+    float attackTimer;
+    float minDistanceFromPlayer = 10f;
+    float attackDistance = 5f;
 
-    public delegate void OnPlayerTouchedDelegate();
-    public OnPlayerTouchedDelegate onPlayerTouched;
+    public delegate void OnAttackPlayerDelegate();
+    public OnAttackPlayerDelegate onAttackPlayer;
 
-    public delegate void OnDieDelegate();
+    public delegate void OnDieDelegate(Enemy enemy);
     public OnDieDelegate onDie;
 
     public enum State
@@ -38,6 +40,7 @@ public class Enemy : Character
 
         anim = GetComponent<Animator>();
         capsule = GetComponent<CapsuleCollider>();
+        attackTimer = 1.5f;
     }
 
     void Update()
@@ -56,6 +59,26 @@ public class Enemy : Character
             default:
                 break;
         }
+
+        SetAttack();
+    }
+
+    void SetAttack()
+    {
+        if(IsPlayerClose(attackDistance))
+        {
+            attackTimer -= Time.deltaTime;
+        }
+        else
+        {
+            attackTimer = 1.5f;
+        }
+
+        if (attackTimer < 0)
+        {
+            onAttackPlayer?.Invoke();
+            attackTimer = 1.5f;
+        }
     }
 
     void ResetTimer()
@@ -63,9 +86,9 @@ public class Enemy : Character
         stateTimer = Random.Range(1, 4);
     }
 
-    bool IsPlayerClose()
+    bool IsPlayerClose(float minDistance)
     {
-        return Vector3.Distance(transform.position, player.position) < minDistanceFromPlayer;
+        return Vector3.Distance(transform.position, player.position) < minDistance;
     }
 
     void ChangeState(State newState, float animSpeed)
@@ -100,7 +123,7 @@ public class Enemy : Character
             ChangeState(State.Walking, 1f);
         }
 
-        if (IsPlayerClose())
+        if (IsPlayerClose(minDistanceFromPlayer))
         {
             ChangeState(State.FollowingPlayer, 0f);
         }
@@ -122,7 +145,7 @@ public class Enemy : Character
             SetMovement(transform.forward, direction);
         }
 
-        if (IsPlayerClose())
+        if (IsPlayerClose(minDistanceFromPlayer))
         {
             ChangeState(State.FollowingPlayer, 0f);
         }
@@ -130,7 +153,7 @@ public class Enemy : Character
 
     void SetFollowingPlayer()
     {
-        if (IsPlayerClose())
+        if (IsPlayerClose(minDistanceFromPlayer))
         {
             SetMovement(direction, (player.position - transform.position).normalized);
             direction = (player.position - transform.position).normalized;            
@@ -141,11 +164,8 @@ public class Enemy : Character
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnDestroy()
     {
-        if (other.transform == player)
-        {
-            onPlayerTouched?.Invoke();
-        }
+        onDie?.Invoke(this);
     }
 }

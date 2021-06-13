@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemiesInstantiator : MonoBehaviour
+public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefab;
     [SerializeField] Vector3 circleOfMovement;
     [SerializeField] Transform player;
     List<Enemy> enemies;
+
+    public delegate void OnAllEnemiesKilledDelegate();
+    public OnAllEnemiesKilledDelegate onAllEnemiesKilled;
 
     int amountEnemies = 10;
 
@@ -25,11 +28,22 @@ public class EnemiesInstantiator : MonoBehaviour
 
             Enemy enemyComponent = enemy.GetComponent<Enemy>();
 
-            //enemyComponent.onPlayerTouched += hacer daño al player;
+            enemyComponent.onAttackPlayer += GameplayManager.GetInstance().SetEnemyAttack;
+            enemyComponent.onDie += RemoveFromList;
             enemyComponent.circleOfMovement = circleOfMovement;
             enemyComponent.player = player;
 
             enemies.Add(enemyComponent);
+        }
+    }
+
+    void RemoveFromList(Enemy enemy)
+    {
+        enemies.Remove(enemy);
+
+        if (enemies.Count == 0)
+        {
+            onAllEnemiesKilled?.Invoke();
         }
     }
 }

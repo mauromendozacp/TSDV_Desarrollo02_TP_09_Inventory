@@ -32,7 +32,14 @@ public class GameplayManager : MonoBehaviour
     void Start()
     {
         LoadJson();
+        Player.OnRefreshMeshAsStatic();
     }
+
+    public void SetEnemyAttack()
+    {
+        player.AddDamage();
+    }
+
     public int GetRandomItemID()
     {
         return Random.Range(0, allItems.List.Count);
@@ -126,6 +133,9 @@ public class GameplayManager : MonoBehaviour
         }
         player.SetSaveSlots(newList);
     }
+
+
+
     void OnDestroy()
     {
         SaveJson();
