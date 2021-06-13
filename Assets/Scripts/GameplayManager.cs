@@ -31,8 +31,9 @@ public class GameplayManager : MonoBehaviour
 
     void Start()
     {
-        LoadJson();
+        LoadJson();        
     }
+
     public int GetRandomItemID()
     {
         return Random.Range(0, allItems.List.Count);

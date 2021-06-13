@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class Enemy : Character
 {
-    [SerializeField] Transform player;
+    public Transform player;
 
-    [SerializeField] Vector3 circleOfMovement; 
+    Animator anim;
+
+    public Vector3 circleOfMovement;
     Vector3 targetPos;
 
     float stateTimer;
-    float minDistanceFromPlayer = 5f;    
+    float minDistanceFromPlayer = 8f;
+
+    public delegate void OnPlayerTouchedDelegate();
+    public OnPlayerTouchedDelegate onPlayerTouched;
+
+    public delegate void OnDieDelegate();
+    public OnDieDelegate onDie;
 
     public enum State
     {
@@ -26,7 +34,10 @@ public class Enemy : Character
         actualState = State.Idle;
         stateTimer = Random.Range(1, 4);
 
-       moveSpeed = 4;
+        moveSpeed = 4;
+
+        anim = GetComponent<Animator>();
+        capsule = GetComponent<CapsuleCollider>();
     }
 
     void Update()
@@ -47,9 +58,31 @@ public class Enemy : Character
         }
     }
 
+    void ResetTimer()
+    {
+        stateTimer = Random.Range(1, 4);
+    }
+
     bool IsPlayerClose()
     {
         return Vector3.Distance(transform.position, player.position) < minDistanceFromPlayer;
+    }
+
+    void ChangeState(State newState, float animSpeed)
+    {
+        actualState = newState;
+        ResetTimer();
+
+        anim.SetFloat("Speed", animSpeed);
+
+        if (newState == State.FollowingPlayer)
+        {
+            anim.SetBool("ChasingPlayer", true);
+        }
+        else
+        {
+            anim.SetBool("ChasingPlayer", false);
+        }
     }
 
     void SetIdle()
@@ -58,18 +91,18 @@ public class Enemy : Character
 
         if (stateTimer < 0)
         {
-            targetPos = circleOfMovement + new Vector3(Random.Range(1, circleOfMovement.y), 0, Random.Range(1, circleOfMovement.y));
+            targetPos = circleOfMovement + new Vector3(Random.Range(-circleOfMovement.y, circleOfMovement.y), 0, 
+                                                       Random.Range(-circleOfMovement.y, circleOfMovement.y));
             targetPos.y = transform.position.y;
 
             direction = (targetPos - transform.position).normalized;
 
-            actualState = State.Walking;
-            stateTimer = Random.Range(2, 5);
+            ChangeState(State.Walking, 1f);
         }
 
         if (IsPlayerClose())
         {
-            actualState = State.FollowingPlayer;
+            ChangeState(State.FollowingPlayer, 0f);
         }
     }
 
@@ -82,8 +115,7 @@ public class Enemy : Character
     {
         if (IsCloseToMinimunPos())
         {
-            actualState = State.Idle;
-            stateTimer = Random.Range(2, 5);
+            ChangeState(State.Idle, 0f);
         }
         else
         {
@@ -92,7 +124,7 @@ public class Enemy : Character
 
         if (IsPlayerClose())
         {
-            actualState = State.FollowingPlayer;
+            ChangeState(State.FollowingPlayer, 0f);
         }
     }
 
@@ -105,8 +137,15 @@ public class Enemy : Character
         }
         else
         {
-            actualState = State.Idle;
-            stateTimer = Random.Range(2, 5);
-        }        
+            ChangeState(State.Idle, 0f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.transform == player)
+        {
+            onPlayerTouched?.Invoke();
+        }
     }
 }
