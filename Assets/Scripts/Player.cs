@@ -34,17 +34,26 @@ public class Player : Character
     Equipment equipment;
     Inventory inventory;
     Animator anim;
+    private Rigidbody rb;
 
     public delegate void RefreshMesh();
     public static RefreshMesh OnRefreshMeshAsStatic;
 
     private bool movementAllowed = true;
+    private bool m_IsGrounded;
+    private float m_OrigGroundCheckDistance;
+    private float m_GroundCheckDistance = 0.2f;
+    private float m_GravityMultiplier = 1.5f;
+    private float jumpSpeed = 15f;
 
     private void Awake()
     {
         equipment = GetComponent<Equipment>();
         inventory = GetComponent<Inventory>();
         anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        capsule = GetComponent<CapsuleCollider>();
+        m_OrigGroundCheckDistance = m_GroundCheckDistance;
     }
 
     private void Start()
@@ -104,14 +113,6 @@ public class Player : Character
         anim.SetFloat("Speed", speed);
     }
 
-    void PickUp()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            anim.SetTrigger("PickUp");
-        }
-    }
-
     void OpenInventory()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -131,6 +132,34 @@ public class Player : Character
         }
     }
 
+    void CheckGroundStatus()
+    {
+        RaycastHit hitInfo;
+        if (Physics.Raycast(transform.position + (Vector3.up * 0.1f), Vector3.down, out hitInfo, m_GroundCheckDistance))
+        {
+            m_IsGrounded = true;
+        }
+        else
+        {
+            m_IsGrounded = false;
+        }
+    }
+
+    void HandleAirborneMovement()
+    {
+        Vector3 extraGravityForce = (Physics.gravity * m_GravityMultiplier) - Physics.gravity;
+        rb.AddForce(extraGravityForce);
+
+        m_GroundCheckDistance = rb.velocity.y < 0 ? m_OrigGroundCheckDistance : 0.01f;
+    }
+
+    void SetJump()
+    {
+        rb.AddForce(Vector3.up * jumpSpeed, ForceMode.Impulse);
+        m_IsGrounded = false;
+        m_GroundCheckDistance = 0.1f;
+    }
+
     void Update()
     {
         OpenInventory();
@@ -148,8 +177,18 @@ public class Player : Character
         {
             anim.SetFloat("Speed", 0f);
         }
-        PickUp();
-        
+        CheckGroundStatus();
+        if (m_IsGrounded)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                SetJump();
+            }
+        }
+        else
+        {
+            HandleAirborneMovement();
+        }
     }
 
     public void UpdateMesh()
@@ -251,8 +290,12 @@ public class Player : Character
 
     private void OnTriggerStay(Collider other)
     {
-        if(Contains(itemMask, other.gameObject.layer)){
-            if(Input.GetKeyDown(KeyCode.E)){
+        if(Contains(itemMask, other.gameObject.layer))
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                anim.SetTrigger("PickUp");
+
                 int _id = other.gameObject.GetComponent<ItemData>().itemID;
                 int _amount = other.gameObject.GetComponent<ItemData>().itemAmount;
                 inventory.AddNewItem(_id, _amount);

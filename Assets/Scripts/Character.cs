@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ public class Character : MonoBehaviour
     public float moveSpeed = 5;
     public float turnSpeed = 250;
     private Coroutine _rotateCorroutine = null;
+    protected CapsuleCollider capsule;
 
     public IEnumerator Rotate(Vector3 newDir)
     {
@@ -42,6 +44,17 @@ public class Character : MonoBehaviour
             _rotateCorroutine = StartCoroutine(Rotate(newDir));
         }
 
-        transform.position += newDir * moveSpeed * Time.deltaTime;
+        if (CheckFrontBlock(newDir))
+        {
+            transform.position += newDir * moveSpeed * Time.deltaTime;
+        }
+    }
+
+    bool CheckFrontBlock(Vector3 newDir)
+    {
+        Vector3 originPos = transform.position;
+        originPos.y += (capsule.height * 2f) * 3f / 4f;
+
+        return !Physics.Raycast(originPos, newDir, capsule.radius * 3f);
     }
 }

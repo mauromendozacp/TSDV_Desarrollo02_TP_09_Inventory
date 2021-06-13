@@ -4700,6 +4700,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6667635886852287726, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: m_Height
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7269536001724329680, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_Mass
@@ -4708,12 +4713,12 @@ PrefabInstance:
     - target: {fileID: 7269536001724329680, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7269536001724329680, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 112
       objectReference: {fileID: 0}
     - target: {fileID: 9064373463868623024, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
