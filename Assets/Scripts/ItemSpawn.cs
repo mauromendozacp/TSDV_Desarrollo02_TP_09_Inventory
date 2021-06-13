@@ -11,11 +11,6 @@ public class ItemSpawn : MonoBehaviour
         enemy = this.gameObject;
     }
 
-    void OnDestroy()
-    {
-        GenerateNewItem();
-    }
-
     public void GenerateNewItem()
     {
         int randomID = GameplayManager.GetInstance().GetRandomItemID();

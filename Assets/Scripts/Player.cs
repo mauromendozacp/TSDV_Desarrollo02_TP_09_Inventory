@@ -165,6 +165,7 @@ public class Player : Character
             foreach(Collider hitColider in hitColliders)
             {
                 Destroy(hitColider.gameObject);
+                hitColider.transform.GetComponent<ItemSpawn>().GenerateNewItem();
             }
         }
     }
