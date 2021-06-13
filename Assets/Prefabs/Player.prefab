@@ -1205,7 +1205,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116140122}
-  m_Mesh: {fileID: 6943779970713042928, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &1116140124
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -2215,7 +2215,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4930256407531418354}
-  m_Mesh: {fileID: 3485877776262524384, guid: c7f1e075937e3894d9fb5258a92900f3, type: 3}
+  m_Mesh: {fileID: 0}
 --- !u!23 &1152070756884627913
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3295,6 +3295,9 @@ MonoBehaviour:
       type: 3}
   inventoryPanel: {fileID: 0}
   itemMask:
+    serializedVersion: 2
+    m_Bits: 0
+  enemyMask:
     serializedVersion: 2
     m_Bits: 0
   uiInventory: {fileID: 0}
