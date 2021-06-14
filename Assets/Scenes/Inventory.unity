@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44575858, g: 0.49003613, b: 0.5450212, a: 1}
+  m_IndirectSpecularColor: {r: 0.44575834, g: 0.4900359, b: 0.5450202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -5016,6 +5016,34 @@ PrefabInstance:
       value: 1024
       objectReference: {fileID: 0}
     - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[0]
+      value: 
+      objectReference: {fileID: 151664, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[1]
+      value: 
+      objectReference: {fileID: 141316, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[2]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[3]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[4]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
+      propertyPath: meteors.Array.data[5]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 16788563, guid: 5b88898757134eb4a9253c1357ea6549, type: 3}
       propertyPath: playerDefaultMesh.boots
       value: 
       objectReference: {fileID: 6044559441606390166, guid: 114110abb082040459c9d697a14ae903,
@@ -5052,6 +5080,77 @@ PrefabInstance:
       propertyPath: playerUIMesh.Array.data[7]
       value: 
       objectReference: {fileID: 553191101}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: maxMeteors
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: magicCircle
+      value: 
+      objectReference: {fileID: 100000, guid: 88ae62ae7dacfe145a0d8a978a7212a1, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsParent
+      value: 
+      objectReference: {fileID: 1167878119980393634, guid: 703cb443694d0064db9dd45155a4990f,
+        type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsPrefs.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsPrefs.Array.data[0]
+      value: 
+      objectReference: {fileID: 151664, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsPrefs.Array.data[1]
+      value: 
+      objectReference: {fileID: 141316, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsPrefs.Array.data[2]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[0]
+      value: 
+      objectReference: {fileID: 151664, guid: fa49e460baf435b4780da7196c2ab473, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[1]
+      value: 
+      objectReference: {fileID: 141316, guid: 84cc3cd234dfc9d4d9d2e92c0eb0af75, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[2]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[3]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[4]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
+    - target: {fileID: 4662557126692232059, guid: 5b88898757134eb4a9253c1357ea6549,
+        type: 3}
+      propertyPath: meteorsAbility.Array.data[5]
+      value: 
+      objectReference: {fileID: 130102, guid: 04d0bf4be9447154188d86f6e3b8dce9, type: 3}
     - target: {fileID: 5867834726234589986, guid: 5b88898757134eb4a9253c1357ea6549,
         type: 3}
       propertyPath: m_RootOrder

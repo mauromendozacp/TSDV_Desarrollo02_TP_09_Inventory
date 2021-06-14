@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [Serializable]
 public class PlayerMesh
 {
@@ -177,18 +176,17 @@ public class Player : Character
     {
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         bool attacking = stateInfo.IsName("Attack");
-        if(Input.GetKeyDown(KeyCode.Mouse0) && !attacking)
+        if(Input.GetKeyDown(KeyCode.Mouse0) && !attacking && !inventoryPanel.activeSelf)
         {
             anim.SetTrigger("Attack");
             Collider[] hitColliders = Physics.OverlapSphere((transform.position + new Vector3(0f, 2.5f, 0f)) + transform.forward * 1.5f, 1.5f, enemyMask);
             foreach(Collider hitColider in hitColliders)
             {
                 hitColider.transform.GetComponent<ItemSpawn>().GenerateNewItem();
-                Destroy(hitColider.gameObject);
-                
+                Destroy(hitColider.gameObject);                
             }
         }
-    }
+    }    
 
     void SetJump()
     {
@@ -205,7 +203,9 @@ public class Player : Character
         if (!movementAllowed)
             return;
 
-        if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+        if (IsMoving() && !anim.GetCurrentAnimatorStateInfo(0).IsName("PickUp") 
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("Attack") 
+            && !anim.GetCurrentAnimatorStateInfo(0).IsName("MeteorShower"))
         {
             SetMovement(direction, GetDirection());
             direction = GetDirection();
@@ -354,5 +354,5 @@ public class Player : Character
     bool Contains(LayerMask mask, int layer)
     {
         return mask == (mask | (1 << layer));
-    }
+    }    
 }
