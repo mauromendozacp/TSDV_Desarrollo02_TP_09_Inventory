@@ -26,8 +26,8 @@ MonoBehaviour:
     pos: {x: 0.203, y: -0.048, z: 0}
     rot: {x: -5.92, y: -7.566, z: -127.83}
   spawnPositionL:
-    pos: {x: -0.1441, y: -0.031, z: 0.004}
-    rot: {x: 180, y: 0, z: 4.926987}
+    pos: {x: -0.15, y: -0.021, z: -0.003}
+    rot: {x: 178.336, y: 361.684, z: -3.737}
   resistance: 10
   size: 1
   speedRating: 75
