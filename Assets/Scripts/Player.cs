@@ -49,6 +49,8 @@ public class Player : Character
 
     public delegate void OnDieDelegate();
     public OnDieDelegate onDie;
+    public delegate void OnLivesChangedDelegate(int lives);
+    public OnLivesChangedDelegate onLivesChanged;
 
     [SerializeField] int lives = 5;
 
@@ -60,14 +62,13 @@ public class Player : Character
         rb = GetComponent<Rigidbody>();
         capsule = GetComponent<CapsuleCollider>();
         m_OrigGroundCheckDistance = m_GroundCheckDistance;
+
+        OnRefreshMeshAsStatic += UpdateMesh;
     }
 
     private void Start()
     {
-       GameplayManager.GetInstance().SetPlayer(this);
-       OnRefreshMeshAsStatic += UpdateMesh;
-
-       UpdateMesh();    
+        UpdateMesh();    
     }
 
     void OnDestroy()
@@ -78,6 +79,7 @@ public class Player : Character
     public void AddDamage()
     {
         lives--;
+        onLivesChanged?.Invoke(lives);
 
         if (lives == 0)
         {

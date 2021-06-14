@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class GameplayManager : MonoBehaviour
 {
-
     [SerializeField] ItemList allItems;
 
-    Player player;
+    [SerializeField] Player player;
+    [SerializeField] EnemiesManager enemiesManager;
+    [SerializeField] UIGameplay uiGameplay;
+
     [SerializeField] GameObject itemPrefab;
     private const float itemArmScale = 0.018f;
 
@@ -22,6 +24,17 @@ public class GameplayManager : MonoBehaviour
         if (!instance)
         {
             instance = this;
+
+            LoadJson();
+
+            Player.OnRefreshMeshAsStatic();
+
+            player.onLivesChanged += uiGameplay.UpdateLives;
+            enemiesManager.onNewEnemyCreated += SetEnemyAttack;
+            enemiesManager.onEnemiesAmountChanged += uiGameplay.UpdateEnemiesAmount;
+
+            //enemiesManager.onAllEnemiesKilled += ganar
+            //player.onDie += perder
         }
         else
         {
@@ -29,15 +42,9 @@ public class GameplayManager : MonoBehaviour
         }
     }
 
-    void Start()
+    public void SetEnemyAttack(Enemy enemy)
     {
-        LoadJson();
-        Player.OnRefreshMeshAsStatic();
-    }
-
-    public void SetEnemyAttack()
-    {
-        player.AddDamage();
+        enemy.onAttackPlayer += player.AddDamage;
     }
 
     public int GetRandomItemID()
@@ -133,8 +140,6 @@ public class GameplayManager : MonoBehaviour
         }
         player.SetSaveSlots(newList);
     }
-
-
 
     void OnDestroy()
     {

@@ -9,8 +9,14 @@ public class EnemiesManager : MonoBehaviour
     [SerializeField] Transform player;
     List<Enemy> enemies;
 
+    public delegate void OnNewEnemyCreatedDelegate(Enemy enemy);
+    public OnNewEnemyCreatedDelegate onNewEnemyCreated;
+
     public delegate void OnAllEnemiesKilledDelegate();
     public OnAllEnemiesKilledDelegate onAllEnemiesKilled;
+
+    public delegate void OnEnemiesAmountChangedDelegate(int enemiesAmount);
+    public OnEnemiesAmountChangedDelegate onEnemiesAmountChanged;
 
     int amountEnemies = 10;
 
@@ -28,18 +34,23 @@ public class EnemiesManager : MonoBehaviour
 
             Enemy enemyComponent = enemy.GetComponent<Enemy>();
 
-            enemyComponent.onAttackPlayer += GameplayManager.GetInstance().SetEnemyAttack;
             enemyComponent.onDie += RemoveFromList;
             enemyComponent.circleOfMovement = circleOfMovement;
             enemyComponent.player = player;
 
+            onNewEnemyCreated?.Invoke(enemyComponent);
+
             enemies.Add(enemyComponent);
         }
+
+        onEnemiesAmountChanged?.Invoke(enemies.Count);
     }
 
     void RemoveFromList(Enemy enemy)
     {
         enemies.Remove(enemy);
+
+        onEnemiesAmountChanged?.Invoke(enemies.Count);
 
         if (enemies.Count == 0)
         {
