@@ -20,6 +20,8 @@ public class Player : Character
     [SerializeField] LayerMask itemMask;
     [SerializeField] LayerMask enemyMask;
     [SerializeField] UiInventory uiInventory;
+    [SerializeField] GameObject HUD;
+    [SerializeField] GameObject PauseUI;
 
     public enum PlayerPart
     {
@@ -132,6 +134,16 @@ public class Player : Character
         anim.SetFloat("Speed", speed);
     }
 
+    void Pause()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PauseUI.SetActive(true);
+            Time.timeScale = 0f;
+            GameplayManager.GetInstance().Paused = true;
+        }
+    }
+
     void OpenInventory()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -139,12 +151,14 @@ public class Player : Character
             if (!inventoryPanel.activeSelf)
             {
                 inventoryPanel.SetActive(true);
+                HUD.SetActive(false);
                 UpdatePlayerUi();
                 anim.SetFloat("Speed", 0.0f);
             }
             else
             {
                 inventoryPanel.SetActive(false);
+                HUD.SetActive(true);
             }
 
             movementAllowed = !inventoryPanel.activeSelf;
@@ -198,6 +212,7 @@ public class Player : Character
     void Update()
     {
         OpenInventory();
+        Pause();
         SetAttack();
 
         if (!movementAllowed)

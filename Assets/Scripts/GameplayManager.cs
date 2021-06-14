@@ -19,6 +19,8 @@ public class GameplayManager : MonoBehaviour
 
     string savePath = "SaveFile.json";
 
+    public bool Paused { get; set; }
+
     private void Awake()
     {
         if (!instance)
