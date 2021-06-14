@@ -278,14 +278,14 @@ public class Player : Character
                 playerMesh[index].GetComponent<MeshFilter>().mesh =
                     GameplayManager.GetInstance().GetItemFromID(id).mesh;
 
-                if (index == 5)
+                if (index == 6)
                 {
                     playerMesh[index].transform.localPosition =
                         ((Arms)(GameplayManager.GetInstance().GetItemFromID(id))).spawnPositionL.pos;
                     playerMesh[index].transform.localEulerAngles =
                         ((Arms)(GameplayManager.GetInstance().GetItemFromID(id))).spawnPositionL.rot;
                 }
-                else if (index == 6)
+                else if (index == 7)
                 {
                     playerMesh[index].transform.localPosition =
                         ((Arms)(GameplayManager.GetInstance().GetItemFromID(id))).spawnPositionR.pos;
