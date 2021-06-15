@@ -3,6 +3,7 @@
 public class MeteorsShower : MonoBehaviour
 {
     [SerializeField] private GameObject meteorsParent;
+    [SerializeField] private GameObject inventoryPanel;
 
     Animator anim;
 
@@ -20,7 +21,7 @@ public class MeteorsShower : MonoBehaviour
     {
         AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         bool shower = stateInfo.IsName("MeteorShower");
-        if (Input.GetKeyDown(KeyCode.Mouse1) && !shower)     // && !inventoryPanel.activeSelf) ----> Para ver despues
+        if (Input.GetKeyDown(KeyCode.Mouse1) && !shower && !inventoryPanel.activeSelf)
         {
             anim.SetTrigger("MeteorShower");
             SpawnMeteors();
