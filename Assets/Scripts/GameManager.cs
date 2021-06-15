@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     public enum SceneGame
     {
         MainMenu,
+        Credits,
         GamePlay,
         GameOver
     }

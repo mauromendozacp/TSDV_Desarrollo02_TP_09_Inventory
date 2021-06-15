@@ -11,6 +11,11 @@ public class MainMenuUI : MonoBehaviour
         UI_LevelLoader.Get().SetVisible(true);
     }
 
+    public void GoToScene(string sceneName)
+    {
+        GameManager.Instance.ChangeScene(sceneName);
+    }
+
     public void ExitGame()
     {
         Application.Quit();
