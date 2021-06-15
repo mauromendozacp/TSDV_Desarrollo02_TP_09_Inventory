@@ -6,11 +6,6 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public int MainMenuScene { get; } = 0;
-    public int GamePlayScene { get; } = 1;
-    public int DeathScene { get; } = 2;
-    public int WinScene { get; } = 3;
-
     private void Awake()
     {
         if (Instance != null)
@@ -28,12 +23,13 @@ public class GameManager : MonoBehaviour
     {
         MainMenu,
         GamePlay,
-        DeathScene,
-        WinScene
+        GameOver
     }
 
     public SceneGame Scene { get; set; }
-    public bool Win { get; set; } = false;
+    public int Lifes { get; set; }
+    public int EnemiesKilled { get; set; }
+    public bool Win { get; set; }
     public bool GameOver { get; set; }
 
     public void ChangeScene(string sceneName)
@@ -43,7 +39,9 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        GameOver = false;
+        Lifes = 0;
+        EnemiesKilled = 0;
         Win = false;
+        GameOver = false;
     }
 }

@@ -12,11 +12,11 @@ public class PauseUI : MonoBehaviour
         GameplayManager.GetInstance().Paused = false;
     }
 
-    public void BackToMenu()
+    public void BackToMenu(string sceneName)
     {
         Time.timeScale = 1f;
         GameplayManager.GetInstance().Paused = false;
 
-        SceneManager.LoadScene("MainMenu");
+        GameManager.Instance.ChangeScene(sceneName);
     }
 }
