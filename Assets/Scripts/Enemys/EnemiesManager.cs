@@ -6,23 +6,25 @@ public class EnemiesManager : MonoBehaviour
 {
     [SerializeField] GameObject[] enemyPrefab;
     [SerializeField] Vector3 circleOfMovement;
-    [SerializeField] Transform player;
+    [SerializeField] Transform playerTransform;
     List<Enemy> enemies;
 
     public delegate void OnNewEnemyCreatedDelegate(Enemy enemy);
     public OnNewEnemyCreatedDelegate onNewEnemyCreated;
 
-    public delegate void OnAllEnemiesKilledDelegate();
+    public delegate void OnAllEnemiesKilledDelegate(Player p, bool w);
     public OnAllEnemiesKilledDelegate onAllEnemiesKilled;
 
     public delegate void OnEnemiesAmountChangedDelegate(int enemiesAmount);
     public OnEnemiesAmountChangedDelegate onEnemiesAmountChanged;
 
     int amountEnemies = 10;
+    Player player;
 
     void Start()
     {
         enemies = new List<Enemy>();
+        player = FindObjectOfType<Player>();
 
         for (int i = 0; i < amountEnemies; i++)
         {
@@ -36,7 +38,7 @@ public class EnemiesManager : MonoBehaviour
 
             enemyComponent.onDie += RemoveFromList;
             enemyComponent.circleOfMovement = circleOfMovement;
-            enemyComponent.player = player;
+            enemyComponent.player = playerTransform;
 
             onNewEnemyCreated?.Invoke(enemyComponent);
 
@@ -51,10 +53,11 @@ public class EnemiesManager : MonoBehaviour
         enemies.Remove(enemy);
 
         onEnemiesAmountChanged?.Invoke(enemies.Count);
+        player.EnemiesKilled++;
 
         if (enemies.Count == 0)
         {
-            onAllEnemiesKilled?.Invoke();
+            onAllEnemiesKilled?.Invoke(player, true);
         }
     }
 }

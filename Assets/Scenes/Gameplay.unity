@@ -2380,7 +2380,7 @@ MonoBehaviour:
   - {fileID: 1090219386143568, guid: a817c29ea6847604bb2c6c51d9a74bf1, type: 3}
   - {fileID: 1837317425425208, guid: 3aec22b5d3f3c2947bb81040b56e5f96, type: 3}
   circleOfMovement: {x: 600.5714, y: 85, z: 2464.7}
-  player: {fileID: 1167508892}
+  playerTransform: {fileID: 1167508892}
 --- !u!4 &1014063885
 Transform:
   m_ObjectHideFlags: 0

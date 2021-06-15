@@ -163,9 +163,4 @@ public class Enemy : Character
             ChangeState(State.Idle, 0f);
         }
     }
-
-    private void OnDestroy()
-    {
-        onDie?.Invoke(this);
-    }
 }

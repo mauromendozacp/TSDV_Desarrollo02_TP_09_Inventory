@@ -48,12 +48,31 @@ public class Player : Character
     private float m_GravityMultiplier = 1.5f;
     private float jumpSpeed = 15f;
 
-    public delegate void OnDieDelegate();
+    public delegate void OnDieDelegate(Player p, bool w);
     public OnDieDelegate onDie;
     public delegate void OnLivesChangedDelegate(int lives);
     public OnLivesChangedDelegate onLivesChanged;
 
     [SerializeField] int lives = 5;
+    public int Lives
+    {
+        get => lives;
+        set
+        {
+            if (value <= 0)
+            {
+                lives = 0;
+                onDie?.Invoke(this, false);
+            }
+            else
+            {
+                lives = value;
+            }
+        }
+    }
+
+    public int EnemiesKilled { get; set; } = 0;
+
 
     private void Awake()
     {
@@ -79,13 +98,8 @@ public class Player : Character
 
     public void AddDamage()
     {
-        lives--;
-        onLivesChanged?.Invoke(lives);
-
-        if (lives == 0)
-        {
-            onDie?.Invoke();
-        }
+        Lives--;
+        onLivesChanged?.Invoke(Lives);
     }
 
     public List<Slot> GetSaveSlots()
@@ -197,7 +211,8 @@ public class Player : Character
             foreach(Collider hitColider in hitColliders)
             {
                 hitColider.transform.GetComponent<ItemSpawn>().GenerateNewItem();
-                Destroy(hitColider.gameObject);                
+                hitColider.transform.GetComponent<Enemy>().onDie(hitColider.transform.GetComponent<Enemy>());
+                Destroy(hitColider.gameObject);
             }
         }
     }    

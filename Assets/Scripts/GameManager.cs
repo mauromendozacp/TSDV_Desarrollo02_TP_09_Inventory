@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     }
 
     public SceneGame Scene { get; set; }
-    public int Lifes { get; set; }
+    public int Lives { get; set; }
     public int EnemiesKilled { get; set; }
     public bool Win { get; set; }
     public bool GameOver { get; set; }
@@ -39,9 +39,18 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        Lifes = 0;
+        Lives = 0;
         EnemiesKilled = 0;
         Win = false;
         GameOver = false;
+    }
+
+    public void FinishGame(Player player, bool winGame)
+    {
+        Lives = player.Lives;
+        EnemiesKilled = player.EnemiesKilled;
+        Win = winGame;
+        GameOver = true;
+        ChangeScene("GameOver");
     }
 }

@@ -19,12 +19,13 @@ public class GameOverUI : MonoBehaviour
         else
             title.text += "LOSE!";
 
-        lifes.text = "Lifes: " + GameManager.Instance.Lifes;
+        lifes.text = "Lives: " + GameManager.Instance.Lives;
         enemiesKilled.text = "Enemies Killed: " + GameManager.Instance.EnemiesKilled;
     }
 
     public void BackToMenu(string sceneName)
     {
+        GameManager.Instance.RestartGame();
         GameManager.Instance.ChangeScene(sceneName);
     }
 }

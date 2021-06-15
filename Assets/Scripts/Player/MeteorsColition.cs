@@ -19,6 +19,7 @@ public class MeteorsColition : MonoBehaviour
         if (other.transform.tag == "Enemy")
         {
             other.transform.GetComponent<ItemSpawn>().GenerateNewItem();
+            other.transform.GetComponent<Enemy>().onDie(other.transform.GetComponent<Enemy>());
             Destroy(other.gameObject);
         }
     }

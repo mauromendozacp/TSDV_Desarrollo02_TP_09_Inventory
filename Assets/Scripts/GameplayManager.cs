@@ -35,8 +35,8 @@ public class GameplayManager : MonoBehaviour
             enemiesManager.onNewEnemyCreated += SetEnemyAttack;
             enemiesManager.onEnemiesAmountChanged += uiGameplay.UpdateEnemiesAmount;
 
-            //enemiesManager.onAllEnemiesKilled += ganar
-            //player.onDie += perder
+            enemiesManager.onAllEnemiesKilled += GameManager.Instance.FinishGame;
+            player.onDie += GameManager.Instance.FinishGame;
         }
         else
         {
